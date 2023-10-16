@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+
+#      host:
+#      port:
+server:
+  port: 8085
+#      password:
+
+#logging:
+#  level:
+#    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+#    org.mongodb.driver.protocol.command: DEBUG
