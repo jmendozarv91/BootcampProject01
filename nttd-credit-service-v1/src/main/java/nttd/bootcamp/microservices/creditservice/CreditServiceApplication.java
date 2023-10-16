@@ -6,11 +6,6 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 
 @EnableWebFlux
 @SpringBootApplication
-//@ComponentScan({
-//		"nttd.bootcamp.microservices.creditservice.controller",
-//		"nttd.bootcamp.microservices.creditservice.service",
-//		"nttd.bootcamp.microservices.creditservice.repository"
-//})
 public class CreditServiceApplication {
 
 	public static void main(String[] args) {

@@ -1,6 +1,8 @@
 package nttd.bootcamp.microservices.creditservice.service;
 
+import nttd.bootcamp.microservices.creditservice.dto.CreditBalanceDto;
 import nttd.bootcamp.microservices.creditservice.dto.CreditDto;
+import nttd.bootcamp.microservices.creditservice.entity.Credit;
 import nttd.bootcamp.microservices.creditservice.repository.CreditRepository;
 import nttd.bootcamp.microservices.creditservice.repository.client.ClientRepository;
 import nttd.bootcamp.microservices.creditservice.utils.AppUtils;
@@ -18,7 +20,7 @@ public class CreditService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public Mono<CreditDto> saveCredit(CreditDto credit) {
+    public Mono<Credit> saveCredit(CreditDto credit) {
         return clientRepository.getClient(credit.getClientId())
                 .flatMap(clientDto -> {
                     if (clientDto.getClientType().equals("01")) {
@@ -26,14 +28,14 @@ public class CreditService {
                                 .collectList()
                                 .flatMap(credits -> {
                                     if (credits.size() == 0) {
-                                        return creditRepository.save(credit);
+                                        return creditRepository.save(AppUtils.entityToEntity(credit));
                                     } else {
                                         return Mono.error(new ResponseStatusException(
                                                 HttpStatus.BAD_REQUEST, "Client can't have more than 1 credit"));
                                     }
                                 });
                     } else if (clientDto.getClientType().equals("02")) {
-                        return creditRepository.save(credit);
+                        return creditRepository.save(AppUtils.entityToEntity(credit));
                     } else {
                         return Mono.error(new ResponseStatusException(
                                 HttpStatus.BAD_REQUEST, "Unknown client type"));
@@ -41,7 +43,20 @@ public class CreditService {
                 }).doOnError(System.out::println);
     }
 
-    public Mono<CreditDto> findCredit(String creditId) {
+    public Mono<Credit> updateBalancePendingCredit(String creditId, CreditBalanceDto creditBalanceDto){
+        System.out.println("id =" + creditId);
+        return creditRepository.findById(creditId)
+                .flatMap(creditDto -> {
+                    System.out.println(creditDto.toString());
+                    System.out.println(creditBalanceDto.getPendingAmount());
+                    creditDto.setPendingAmount(creditBalanceDto.getPendingAmount());
+                    creditDto.setAmount(creditBalanceDto.getAmount());
+                    return creditRepository.save(creditDto);
+                });
+    }
+
+    public Mono<Credit> findCredit(String creditId) {
+        System.out.println("id =" + creditId);
         return creditRepository.findById(creditId)
                 .switchIfEmpty(Mono.error(
                         new ResponseStatusException(
