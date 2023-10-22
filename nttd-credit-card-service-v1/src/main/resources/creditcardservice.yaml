@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Credit Card API
+  version: 1.0.0
+  description: API for managing credit cards
+servers:
+  - url: http://api.example.com/api/v1
+    description: Production server
+
+paths:
+  /credit-card/save:
+    post:
+      summary: Save a new credit card
+      operationId: saveTransaction
+      tags:
+        - Credit Card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditCardRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCardResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
+  /credit-card/consumption:
+    post:
+      summary: Process a consumption on a credit card
+      operationId: processConsumption
+      tags:
+        - Credit Card
+      parameters:
+        - name: clientId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: creditCardId
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsumptionRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
+components:
+  schemas:
+    CreditCardRequest:
+      type: object
+      x-java-class-name: CreditCardRequest
+      required:
+        - cardId
+        - clientId
+        - creditLimit
+        - availableBalance
+      properties:
+        cardId:
+          type: string
+        clientId:
+          type: string
+        creditLimit:
+          type: number
+          format: double
+        availableBalance:
+          type: number
+          format: double
+
+    CreditCardResponse:
+      type: object
+      properties:
+        cardId:
+          type: string
+        clientId:
+          type: string
+        creditLimit:
+          type: number
+          format: double
+        availableBalance:
+          type: number
+          format: double
+
+    ConsumptionRequest:
+      type: object
+      x-java-class-name: ConsumptionRequest
+      required:
+        - amount
+      properties:
+        amount:
+          type: number
+          format: double

@@ -9,9 +9,9 @@ import nttd.bootcamp.microservices.creditcardservice.application.usecases.Credit
 import nttd.bootcamp.microservices.creditcardservice.domain.model.CreditCard;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.Transaction;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.constants.CreditCardConstant;
-import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardDto;
-import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.request.ConsumptionRequest;
-import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.request.CreditCardRequest;
+import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.ConsumptionRequest;
+import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardRequest;
+import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardResponse;
 import nttd.bootcamp.microservices.creditcardservice.domain.port.CreditCardPersistencePort;
 import nttd.bootcamp.microservices.creditcardservice.domain.port.CustomerServicePort;
 import nttd.bootcamp.microservices.creditcardservice.domain.port.TransactionServicePort;
@@ -32,18 +32,18 @@ public class CreditCardManagementService implements CreditCardService {
   private final CreditCardRequestMapper creditCardRequestMapper;
 
   @Override
-  public Mono<CreditCardDto> createNew(CreditCardRequest creditCardRequest) {
+  public Mono<CreditCardResponse> createNew(CreditCardRequest creditCardRequest) {
     CreditCard creditCardToCreate = creditCardRequestMapper.toDomain(creditCardRequest);
     return creditCardPersistencePort.create(creditCardToCreate).map(creditCardDtoMapper::toDto);
   }
 
   @Override
-  public Mono<CreditCardDto> getById(String id) {
+  public Mono<CreditCardResponse> getById(String id) {
     return creditCardPersistencePort.getById(id).map(creditCardDtoMapper::toDto);
   }
 
   @Override
-  public Flux<CreditCardDto> getAll() {
+  public Flux<CreditCardResponse> getAll() {
     return creditCardPersistencePort.getAll().map(creditCardDtoMapper::toDto);
   }
 
@@ -60,10 +60,10 @@ public class CreditCardManagementService implements CreditCardService {
   }
 
   @Override
-  public Mono<CreditCardDto> update(CreditCardRequest request, String id) {
+  public Mono<CreditCardResponse> update(CreditCardRequest request, String id) {
     CreditCard creditCardToUpdate = creditCardRequestMapper.toDomain(request);
-    creditCardToUpdate.setCreditLimit(request.getCreditLimit());
-    creditCardToUpdate.setAvailableBalance(request.getAvailableBalance());
+    creditCardToUpdate.setCreditLimit(BigDecimal.valueOf(request.getCreditLimit()));
+    creditCardToUpdate.setAvailableBalance(BigDecimal.valueOf(request.getAvailableBalance()));
     return creditCardPersistencePort.update(creditCardToUpdate).map(creditCardDtoMapper::toDto);
   }
 
@@ -78,18 +78,18 @@ public class CreditCardManagementService implements CreditCardService {
             .flatMap(validClient -> {
               BigDecimal availableCredit = creditCard.getCreditLimit()
                   .subtract(creditCard.getAvailableBalance());
-              if (request.getAmount().compareTo(availableCredit) > 0) {
+              if (BigDecimal.valueOf(request.getAmount()).compareTo(availableCredit) > 0) {
                 return Mono.error(new CreditCardException(HttpStatus.BAD_REQUEST,
                     CreditCardConstant.CURRENT_INSUFFICIENT_CREDIT));
               }
               creditCard.setAvailableBalance(
-                  creditCard.getAvailableBalance().add(request.getAmount()));
+                  creditCard.getAvailableBalance().add(BigDecimal.valueOf(request.getAmount())));
 
               return creditCardPersistencePort.update(creditCard)
                   .then(transactionServicePort.createTransaction(
                       Transaction.builder()
                           .transactionDate(LocalDateTime.now())
-                          .amount(request.getAmount().doubleValue())
+                          .amount(request.getAmount())
                           .type("charger")
                           .clientId(clientId)
                           .creditCardId(creditCardId)

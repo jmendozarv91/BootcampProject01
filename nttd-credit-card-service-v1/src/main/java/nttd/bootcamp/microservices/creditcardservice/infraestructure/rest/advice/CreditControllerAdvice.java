@@ -11,7 +11,7 @@ public class CreditControllerAdvice {
 
   @ExceptionHandler(CreditCardException.class)
   public ResponseEntity<String> handleEmptyInput(CreditCardException emptyInputException) {
-    return new ResponseEntity<String>(emptyInputException.getErrorMessage(),
+    return new ResponseEntity<>(emptyInputException.getErrorMessage(),
         emptyInputException.getErrorCode());
   }
 }

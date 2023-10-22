@@ -2,33 +2,32 @@ package nttd.bootcamp.microservices.creditcardservice.infraestructure.rest.contr
 
 import lombok.AllArgsConstructor;
 import nttd.bootcamp.microservices.creditcardservice.application.services.CreditCardManagementService;
-import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardDto;
-import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.request.ConsumptionRequest;
-import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.request.CreditCardRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.ConsumptionRequest;
+import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardRequest;
+import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardResponse;
+import org.openapitools.api.CreditCardApi;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-@RequestMapping("/api/v1/credit-card")
 @RestController
 @AllArgsConstructor
-public class CreditCardController {
+public class CreditCardController implements CreditCardApi {
 
   private final CreditCardManagementService creditCardService;
 
-
-  @PostMapping("/save")
-  public Mono<CreditCardDto> saveTransaction(@RequestBody CreditCardRequest creditCardRequest) {
-    return creditCardService.createNew(creditCardRequest);
+  @Override
+  public Mono<ResponseEntity<Void>> processConsumption(String clientId, String creditCardId,
+      Mono<ConsumptionRequest> consumptionRequest, ServerWebExchange exchange) {
+    return consumptionRequest
+        .flatMap(request -> creditCardService.executeConsumption(clientId, creditCardId, request))
+        .then(Mono.just(ResponseEntity.ok().build()));
   }
 
-  @PostMapping("/consumption")
-  public Mono<Void> processConsumption(@RequestParam String clientId,
-      @RequestParam String creditCardId, @RequestBody ConsumptionRequest request) {
-    return creditCardService.executeConsumption(clientId,creditCardId,request);
+  @Override
+  public Mono<ResponseEntity<CreditCardResponse>> saveTransaction(
+      Mono<CreditCardRequest> creditCardRequest, ServerWebExchange exchange) {
+    return null;
   }
-
 }
