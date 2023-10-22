@@ -1,0 +1,16 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/BankNttda
+      field-creation:
+        ignore-class: true
+
+
+
+
+bank-nttdata:
+  client:
+    customer:
+      baseUrl: http://localhost:8087/api/v1/client/
+    transaction:
+      baseUrl: http://localhost:8085/api/v1/transaction-management/

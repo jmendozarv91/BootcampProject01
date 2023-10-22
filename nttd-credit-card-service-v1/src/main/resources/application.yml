@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: local
+
+#      host:
+#      port:
+server:
+  port: 8082
+#      password:
