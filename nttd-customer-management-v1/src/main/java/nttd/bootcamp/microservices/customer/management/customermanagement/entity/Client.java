@@ -23,6 +23,7 @@ public class Client {
     private String identification;
     private String email;
     private String clientType;
+    private String profileType;
     private List<String> accounts;
     private List<String> credits;
     private List<String> creditCards;

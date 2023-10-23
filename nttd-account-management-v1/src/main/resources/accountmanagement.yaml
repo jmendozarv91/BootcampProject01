@@ -1,0 +1,197 @@
+openapi: 3.0.0
+info:
+  title: Account API
+  version: 1.0.0
+  description: API for managing bank accounts
+servers:
+  - url: http://localhost:8080/api/v1/account
+    description: Local server
+paths:
+  /account-management/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get a bank account by ID
+      tags:
+        - Account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '404':
+          description: Account not found
+  /account-management/personal/afiliate:
+    post:
+      operationId: saveAccountPersonal
+      summary: Save a personal bank account
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+      responses:
+        '201':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+  /account-management/business/afiliate:
+    post:
+      operationId: saveAccountBusiness
+      summary: Save a business bank account
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+      responses:
+        '201':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+  /account-management/modify-balance/{id}:
+    patch:
+      operationId: modifyAccountBalance
+      summary: Modify the balance of a bank account
+      tags:
+        - Account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountBalanceRequest'
+      responses:
+        '200':
+          description: Account balance updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '404':
+          description: Account not found
+  /account-management/transfer:
+    post:
+      operationId: makeTransfer
+      summary: Make a transfer between accounts
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '200':
+          description: Transfer completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Invalid transfer request
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    AccountRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        accountNumber:
+          type: string
+        accountType:
+          type: string
+        balance:
+          type: number
+          format: double
+        maxMonthlyTransactions:
+          type: integer
+          format: int32
+        maintenanceFee:
+          type: number
+          format: double
+        ownerId:
+          type: string
+        minimumOpeningAmount:
+          type: number
+          format: double
+    AccountResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        accountNumber:
+          type: string
+        accountType:
+          type: string
+        balance:
+          type: number
+          format: double
+        maxMonthlyTransactions:
+          type: integer
+          format: int32
+        maintenanceFee:
+          type: number
+          format: double
+        ownerId:
+          type: string
+        minimumOpeningAmount:
+          type: number
+          format: double
+    AccountBalanceRequest:
+      type: object
+      properties:
+        balance:
+          type: number
+          format: double
+    TransferRequest:
+      type: object
+      properties:
+        fromAccountId:
+          type: string
+        toAccountId:
+          type: string
+        amount:
+          type: number
+          format: double
+    TransactionResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        fromAccountId:
+          type: string
+        toAccountId:
+          type: string
+        amount:
+          type: number
+          format: double
+        transactionDate:
+          type: string
+          format: date-time

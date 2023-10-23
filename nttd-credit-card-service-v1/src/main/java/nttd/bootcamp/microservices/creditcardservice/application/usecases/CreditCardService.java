@@ -22,4 +22,6 @@ public interface CreditCardService {
       String clientId,
       String creditCardId, ConsumptionRequest request);
 
+  Mono<Boolean> hasCreditCard(String clientId);
+
 }

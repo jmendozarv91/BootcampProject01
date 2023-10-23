@@ -17,4 +17,5 @@ public class ClientDto {
     private String identification;
     private String email;
     private String clientType;
+    private String profileType;
 }

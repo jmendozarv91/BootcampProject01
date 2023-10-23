@@ -51,4 +51,12 @@ public class CreditCardRepositoryAdapter implements CreditCardPersistencePort {
   public Flux<CreditCard> getByIds(List<String> creditCardIds) {
     return null;
   }
+
+  @Override
+  public Flux<CreditCard> getByClientId(String clientId) {
+    return creditCardRepository.findByClientId(clientId).map(creditCardDboMapper::toDomain)
+        .onErrorResume(e -> {
+          return Flux.empty();  // Devuelve un Flux vacío en caso de error
+        });
+  }
 }

@@ -99,6 +99,12 @@ public class CreditCardManagementService implements CreditCardService {
             })
 
         );
+  }
 
+  @Override
+  public Mono<Boolean> hasCreditCard(String clientId) {
+    return creditCardPersistencePort.getByClientId(clientId)
+        .hasElements()
+        .onErrorReturn(false);
   }
 }

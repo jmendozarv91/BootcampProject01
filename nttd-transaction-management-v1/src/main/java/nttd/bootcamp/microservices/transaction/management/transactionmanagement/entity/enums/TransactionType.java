@@ -1,17 +1,28 @@
 package nttd.bootcamp.microservices.transaction.management.transactionmanagement.entity.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum TransactionType {
-    DEPOSIT("01","deposit"),
-    WITHDRAWAL("02","withdrawal"),
+  DEPOSIT("deposit"),
+  WITHDRAWAL("withdrawal"),
+  PAYMENT("payment"),
+  CHARGE("charger"),
+  TRANSFER("transfer");
 
-    PAYMENT("03","payment");
+  private final String code;
 
-    private final String code;
-    private final String name;
+  TransactionType(String code) {
+    this.code = code;
+  }
 
-    TransactionType(String code, String name) {
-        this.code = code;
-        this.name = name;
+  public static TransactionType fromCode(String code) {
+    for (TransactionType transactionType : values()) {
+      if (transactionType.getCode().equals(code)) {
+        return transactionType;
+      }
     }
+    throw new IllegalArgumentException("Tipo de transacción no válido: " + code);
+  }
 
 }

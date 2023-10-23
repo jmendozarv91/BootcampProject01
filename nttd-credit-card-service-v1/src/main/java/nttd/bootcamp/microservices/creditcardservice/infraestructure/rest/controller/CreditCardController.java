@@ -6,6 +6,7 @@ import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.Consumptio
 import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardRequest;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardResponse;
 import org.openapitools.api.CreditCardApi;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
@@ -29,5 +30,15 @@ public class CreditCardController implements CreditCardApi {
   public Mono<ResponseEntity<CreditCardResponse>> saveTransaction(
       Mono<CreditCardRequest> creditCardRequest, ServerWebExchange exchange) {
     return null;
+  }
+
+  @Override
+  public Mono<ResponseEntity<Boolean>> creditCardHasCreditCardClientIdGet(String clientId,
+      ServerWebExchange exchange) {
+    return creditCardService.hasCreditCard(clientId)
+        .map(ResponseEntity::ok)
+        .defaultIfEmpty(ResponseEntity.notFound().build())
+        .onErrorResume(
+            ex -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));
   }
 }

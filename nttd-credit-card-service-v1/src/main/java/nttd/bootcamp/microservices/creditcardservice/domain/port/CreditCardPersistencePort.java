@@ -11,6 +11,9 @@ public interface CreditCardPersistencePort {
 
   Mono<CreditCard> getById(String id);
 
+
+  Flux<CreditCard> getByClientId(String clientId);
+
   Flux<CreditCard> getAll();
 
   Mono<Void> deleteById(String id);

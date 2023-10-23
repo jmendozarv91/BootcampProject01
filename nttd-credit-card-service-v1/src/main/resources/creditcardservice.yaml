@@ -62,9 +62,39 @@ paths:
           description: Bad Request
         '500':
           description: Internal Server Error
-
+  /credit-card/has-credit-card/{clientId}:
+    get:
+      tags:
+        - credit-card
+      summary: Check if the client has a credit card
+      description: Returns true if the client has a credit card, otherwise false.
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          description: Unique identifier of the client
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully checked if the client has a credit card
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Invalid client id provided
+        "500":
+          description: Internal server error
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
     CreditCardRequest:
       type: object
       x-java-class-name: CreditCardRequest
@@ -84,7 +114,6 @@ components:
         availableBalance:
           type: number
           format: double
-
     CreditCardResponse:
       type: object
       properties:
@@ -98,7 +127,6 @@ components:
         availableBalance:
           type: number
           format: double
-
     ConsumptionRequest:
       type: object
       x-java-class-name: ConsumptionRequest

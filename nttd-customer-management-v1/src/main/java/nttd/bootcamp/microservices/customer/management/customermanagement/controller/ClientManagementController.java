@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-@RequestMapping(value = "/api/v1/management-client")
+@RequestMapping(value = "/api/v1/client")
 @RestController
 @Slf4j
 public class ClientManagementController {
