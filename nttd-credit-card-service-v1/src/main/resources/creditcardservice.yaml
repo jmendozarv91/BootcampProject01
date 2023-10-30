@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: API for managing credit cards
 servers:
-  - url: http://api.example.com/api/v1
+  - url: localhost:8082/api/v1
     description: Production server
 
 paths:
@@ -62,10 +62,11 @@ paths:
           description: Bad Request
         '500':
           description: Internal Server Error
+
   /credit-card/has-credit-card/{clientId}:
     get:
       tags:
-        - credit-card
+        - Credit Card
       summary: Check if the client has a credit card
       description: Returns true if the client has a credit card, otherwise false.
       parameters:
@@ -86,6 +87,43 @@ paths:
           description: Invalid client id provided
         "500":
           description: Internal server error
+
+  /credit-card/average-daily-balances:
+    get:
+      summary: Get average daily balances for a client's credit cards
+      operationId: getAverageDailyBalances
+      tags:
+        - Credit Card
+      parameters:
+        - name: clientId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AverageDailyBalanceResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
 components:
   schemas:
     ErrorResponse:
@@ -136,3 +174,13 @@ components:
         amount:
           type: number
           format: double
+    AverageDailyBalanceResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+        balances:
+          type: array
+          items:
+            type: number
+            format: double

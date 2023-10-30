@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import nttd.bootcamp.microservices.transaction.management.domain.model.Transaction;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +14,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//@TypeAlias("BankAccountTransaction")
-//@Component
+@TypeAlias("BankAccountTransaction")
+@Component
 public class BankAccountTransaction
-//    extends Transaction
+    extends Transaction
 {
 
   private String accountId;

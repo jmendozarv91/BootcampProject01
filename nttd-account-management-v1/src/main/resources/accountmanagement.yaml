@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: API for managing bank accounts
 servers:
-  - url: http://localhost:8080/api/v1/account
+  - url: http://localhost:8086/api/v1/account
     description: Local server
 paths:
   /account-management/{accountId}:

@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/BankNttda
+
+
+
+
+bank-nttdata:
+  client:
+    account:
+      baseUrl: http://localhost:8086/api/v1/account/account-management/{accountId}

@@ -1,7 +1,9 @@
 package nttd.bootcamp.microservices.creditcardservice.infraestructure.rest.controller;
 
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import nttd.bootcamp.microservices.creditcardservice.application.services.CreditCardManagementService;
+import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.AverageDailyBalanceResponse;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.ConsumptionRequest;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardRequest;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.dto.CreditCardResponse;
@@ -23,13 +25,18 @@ public class CreditCardController implements CreditCardApi {
       Mono<ConsumptionRequest> consumptionRequest, ServerWebExchange exchange) {
     return consumptionRequest
         .flatMap(request -> creditCardService.executeConsumption(clientId, creditCardId, request))
-        .then(Mono.just(ResponseEntity.ok().build()));
+        .thenReturn(ResponseEntity.ok().build());
   }
 
   @Override
   public Mono<ResponseEntity<CreditCardResponse>> saveTransaction(
       Mono<CreditCardRequest> creditCardRequest, ServerWebExchange exchange) {
-    return null;
+    return creditCardRequest
+        .flatMap(creditCardService::createNew)
+        .map(ResponseEntity::ok)
+        .defaultIfEmpty(ResponseEntity.notFound().build())
+        .onErrorResume(
+            ex -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));
   }
 
   @Override
@@ -38,7 +45,16 @@ public class CreditCardController implements CreditCardApi {
     return creditCardService.hasCreditCard(clientId)
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build())
-        .onErrorResume(
-            ex -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));
+        .onErrorMap(ex -> new RuntimeException("Internal Server Error"));
+  }
+
+  @Override
+  public Mono<ResponseEntity<AverageDailyBalanceResponse>> creditCardAverageDailyBalanceGet(
+      String clientId, LocalDate startDate, LocalDate endDate, ServerWebExchange exchange) {
+    return null;
+//    return creditCardService.getAverageDailyBalance(clientId, startDate, endDate)
+//        .map(ResponseEntity::ok)
+//        .defaultIfEmpty(ResponseEntity.notFound().build())
+//        .onErrorMap(ex -> new RuntimeException("Internal Server Error"));
   }
 }

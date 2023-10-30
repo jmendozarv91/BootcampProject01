@@ -157,7 +157,7 @@
                 <interfaceOnly>true</interfaceOnly>
                 <skipDefaultInterface>true</skipDefaultInterface>
               </configOptions>
-              <modelsToGenerate>CreditCardResponse
+              <modelsToGenerate>CreditCardResponse,AverageDailyBalanceResponse
               </modelsToGenerate> <!-- Names of Response DTOs -->
             </configuration>
           </execution>
@@ -170,7 +170,6 @@
         <version>3.1.2</version> <!-- Puede usar la última versión disponible -->
         <configuration>
           <configLocation>checkstyle.xml</configLocation>
-          <checkstyleVersion>8.19</checkstyleVersion> <!-- Asegúrate de usar al menos la versión 8.19 -->
         </configuration>
       </plugin>
 

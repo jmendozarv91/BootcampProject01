@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: Inquiry Reporting Services
+  description: Service to generate average balance reports
+  version: "1.0"
+servers:
+  - url: localhost:8081/api/v1
+    description: Production server
+paths:
+  /reports/average-balance-summary/{clientId}:
+    get:
+      operationId: generateAverageBalanceSummary
+      summary: Generate average balance summary for a client
+      tags:
+        - reports
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          description: The client's ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Average balance summary generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AverageBalanceSummaryResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: Client not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    AverageBalanceSummaryResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: The client's ID
+        month:
+          type: string
+          description: The month of the summary
+        averageBalance:
+          type: number
+          format: double
+          description: The average balance for the month

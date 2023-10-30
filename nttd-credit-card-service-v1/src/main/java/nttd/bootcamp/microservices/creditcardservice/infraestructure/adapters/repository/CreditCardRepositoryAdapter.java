@@ -1,5 +1,7 @@
 package nttd.bootcamp.microservices.creditcardservice.infraestructure.adapters.repository;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.CreditCard;
@@ -22,6 +24,8 @@ public class CreditCardRepositoryAdapter implements CreditCardPersistencePort {
 
   @Override
   public Mono<CreditCard> create(CreditCard request) {
+
+
     CreditCardEntity creditCardToSave = creditCardDboMapper.toDbo(request);
     return creditCardRepository.save(creditCardToSave).map(creditCardDboMapper::toDomain);
   }
@@ -58,5 +62,12 @@ public class CreditCardRepositoryAdapter implements CreditCardPersistencePort {
         .onErrorResume(e -> {
           return Flux.empty();  // Devuelve un Flux vacío en caso de error
         });
+  }
+
+  @Override
+  public Mono<Boolean> hasOverdueDebts(String clientId) {
+    return creditCardRepository.findByClientId(clientId)
+        .any(credit -> credit.getDueDate().toLocalDate().isBefore(LocalDate.now())
+            && credit.getAvailableBalance().compareTo(BigDecimal.ZERO) > 0);
   }
 }

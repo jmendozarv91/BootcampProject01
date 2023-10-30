@@ -27,10 +27,15 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Servicio que implementa los casos de uso de gestión de cuentas bancarias.
+ */
 @Service
 @AllArgsConstructor
+//implementando mis casos de uso
 public class AccountManagementService implements AccountService {
 
+  //mis puertos
   private final AccountPersistencePort accountPersistencePort;
   private final CustomerServicePort customerServicePort;
   private final TransactionServicePort transactionServicePort;
@@ -38,24 +43,47 @@ public class AccountManagementService implements AccountService {
   private final AccountResponseMapper accountResponseMapper;
   private final AccountRequestMapper accountRequestMapper;
 
+  /**
+   * Retorna todas las cuentas disponibles.
+   *
+   * @return Flux de objetos AccountResponse
+   */
   @Override
   public Flux<AccountResponse> findAllAccounts() {
     // Retorna todos las cuentas disponibles.
     return accountPersistencePort.getAll().map(accountResponseMapper::toDto);
   }
 
+  /**
+   * Retorna una cuenta por su identificador.
+   *
+   * @param id el identificador de la cuenta
+   * @return Mono de objeto AccountResponse
+   */
   @Override
   public Mono<AccountResponse> findById(String id) {
     // Retorna una cuenta por su identificador.
     return accountPersistencePort.getById(id).map(accountResponseMapper::toDto);
   }
 
+  /**
+   * Retorna todas las cuentas asociadas a un propietario.
+   *
+   * @param ownerId el identificador del propietario
+   * @return Flux de objetos AccountResponse
+   */
   @Override
   public Flux<AccountResponse> findByOwnerId(String ownerId) {
     // Retorna todas las cuentas asociadas a un propietario.
     return accountPersistencePort.findByOwnerId(ownerId).map(accountResponseMapper::toDto);
   }
 
+  /**
+   * Elimina una cuenta por su identificador.
+   *
+   * @param id el identificador de la cuenta
+   * @return Mono de Void
+   */
   @Override
   public Mono<Void> deleteById(String id) {
     // Elimina una cuenta por su identificador.
@@ -69,6 +97,12 @@ public class AccountManagementService implements AccountService {
         );
   }
 
+  /**
+   * Guarda una cuenta personal validando ciertas condiciones.
+   *
+   * @param request el objeto de tipo AccountRequest a guardar
+   * @return Mono de objeto AccountResponse
+   */
   @Override
   public Mono<AccountResponse> saveAccountPersonal(AccountRequest request) {
     // Guarda una cuenta personal validando ciertas condiciones.
@@ -107,6 +141,12 @@ public class AccountManagementService implements AccountService {
         });
   }
 
+  /**
+   * Guarda una cuenta empresarial validando ciertas condiciones.
+   *
+   * @param request el objeto de tipo AccountRequest a guardar
+   * @return Mono de objeto AccountResponse
+   */
   @Override
   public Mono<AccountResponse> saveAccountBusiness(AccountRequest request) {
     // Guarda una cuenta empresarial validando ciertas condiciones.
@@ -145,6 +185,13 @@ public class AccountManagementService implements AccountService {
         });
   }
 
+  /**
+   * Actualiza el saldo de una cuenta.
+   *
+   * @param id      el identificador de la cuenta
+   * @param request el objeto de tipo AccountBalanceRequest con el nuevo saldo
+   * @return Mono de objeto AccountResponse
+   */
   @Override
   public Mono<AccountResponse> updateBalanceAccount(String id, AccountBalanceRequest request) {
     // Actualiza el saldo de una cuenta.
@@ -165,6 +212,13 @@ public class AccountManagementService implements AccountService {
         });
   }
 
+
+  /**
+   * Guarda un movimiento de transferencia entre cuentas validando ciertas condiciones.
+   *
+   * @param request el objeto de tipo TransferRequest a guardar
+   * @return Mono de objeto TransactionResponse
+   */
   @Override
   public Mono<TransactionResponse> transferAccount(TransferRequest request) {
     // Realiza una transferencia entre cuentas.

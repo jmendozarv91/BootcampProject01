@@ -24,6 +24,7 @@ public  class TransactionEntity {
   private Double amount;
   @Field(targetType = FieldType.IMPLICIT)
   private String description;
+  @Field(targetType = FieldType.DATE_TIME)
   private LocalDateTime transactionDate;
   @Field(targetType = FieldType.IMPLICIT)
   private String fromAccountId;

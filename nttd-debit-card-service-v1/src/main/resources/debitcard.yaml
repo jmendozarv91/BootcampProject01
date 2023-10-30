@@ -1,0 +1,237 @@
+openapi: 3.0.0
+info:
+  title: Debit Card Service
+  description: Service to manage debit cards and associated bank accounts.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+tags:
+  - name: Debit Card
+    description: Operations related to debit cards
+
+paths:
+  /debit-cards:
+    post:
+      tags:
+        - Debit Card
+      summary: Create a new debit card.
+      operationId: createDebitCard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDebitCardRequest'
+      responses:
+        '201':
+          description: Debit card created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDebitCardResponse'
+        '400':
+          description: Invalid input.
+    get:
+      tags:
+        - Debit Card
+      summary: Get all debit cards.
+      operationId: getAllDebitCards
+      responses:
+        '200':
+          description: List of debit cards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DebitCardResponse'
+        '500':
+          description: Internal server error.
+
+  /debit-cards/{cardNumber}:
+    put:
+      tags:
+        - Debit Card
+      summary: Update a debit card.
+      operationId: updateDebitCard
+      parameters:
+        - name: cardNumber
+          in: path
+          required: true
+          description: The card number of the debit card to be updated.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDebitCardRequest'
+      responses:
+        '200':
+          description: Debit card updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebitCardResponse'
+        '400':
+          description: Invalid input.
+        '404':
+          description: Debit card not found.
+
+  /debit-cards/{cardNumber}/accounts/{accountNumber}:
+    post:
+      tags:
+        - Debit Card
+      summary: Associate a debit card with a bank account.
+      operationId: associateDebitCardWithAccount
+      parameters:
+        - name: cardNumber
+          in: path
+          required: true
+          description: The number of the debit card.
+          schema:
+            type: string
+        - name: accountNumber
+          in: path
+          required: true
+          description: The number of the bank account.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Association created successfully.
+        '400':
+          description: Invalid input.
+        '404':
+          description: Debit card or bank account not found.
+
+  /debit-cards/{cardNumber}/transactions:
+    post:
+      tags:
+        - Debit Card
+      summary: Perform a transaction with a debit card.
+      operationId: performTransaction
+      parameters:
+        - name: cardNumber
+          in: path
+          required: true
+          description: The number of the debit card.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PerformTransactionRequest'
+      responses:
+        '201':
+          description: Transaction completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformTransactionResponse'
+        '400':
+          description: Invalid input.
+        '404':
+          description: Debit card not found.
+        '409':
+          description: Insufficient funds.
+
+components:
+  schemas:
+    CreateDebitCardRequest:
+      type: object
+      required:
+        - accountNumber
+        - associatedAccounts
+      properties:
+        accountNumber:
+          type: string
+          description: The number of the main bank account.
+        associatedAccounts:
+          type: array
+          items:
+            type: string
+          description: The numbers of the associated bank accounts.
+
+    CreateDebitCardResponse:
+      type: object
+      required:
+        - cardNumber
+      properties:
+        cardNumber:
+          type: string
+          description: The number of the created debit card.
+
+    PerformTransactionRequest:
+      type: object
+      required:
+        - amount
+        - transactionType
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The amount of the transaction.
+        transactionType:
+          type: string
+          description: The type of the transaction (withdrawal or payment).
+
+    PerformTransactionResponse:
+      type: object
+      required:
+        - transactionId
+      properties:
+        transactionId:
+          type: string
+          description: The ID of the completed transaction.
+
+    DebitCardResponse:
+      type: object
+      required:
+        - cardNumber
+        - mainAccountNumber
+        - associatedAccounts
+      properties:
+        cardNumber:
+          type: string
+          description: The number of the debit card.
+        mainAccountNumber:
+          type: string
+          description: The number of the main associated bank account.
+        associatedAccounts:
+          type: array
+          items:
+            type: string
+          description: The numbers of the associated bank accounts.
+
+    UpdateDebitCardRequest:
+      type: object
+      required:
+        - cardNumber
+        - expirationDate
+        - securityCode
+        - primaryAccountId
+      properties:
+        cardNumber:
+          type: string
+          description: The card number of the debit card.
+        expirationDate:
+          type: string
+          description: The expiration date of the debit card.
+        securityCode:
+          type: string
+          description: The security code of the debit card.
+        primaryAccountId:
+          type: string
+          description: The ID of the primary account associated with the debit card.
+        associatedAccountIds:
+          type: array
+          items:
+            type: string
+          description: A list of IDs of the accounts associated with the debit card.

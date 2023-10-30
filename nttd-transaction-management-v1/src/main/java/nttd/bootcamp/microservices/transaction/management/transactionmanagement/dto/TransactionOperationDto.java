@@ -1,6 +1,8 @@
 package nttd.bootcamp.microservices.transaction.management.transactionmanagement.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor

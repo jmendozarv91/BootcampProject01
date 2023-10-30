@@ -22,4 +22,6 @@ public interface CreditCardPersistencePort {
 
   Flux<CreditCard> getByIds(List<String> creditCardIds);
 
+  Mono<Boolean> hasOverdueDebts(String clientId);
+
 }
