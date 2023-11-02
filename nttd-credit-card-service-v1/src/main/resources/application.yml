@@ -1,7 +1,8 @@
 spring:
   profiles:
     active: local
-
+  webflux:
+    base-path: /api/v1
 #      host:
 #      port:
 server:

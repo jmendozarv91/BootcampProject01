@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Credit Microservice
+  description: API for managing credit operations
+servers:
+  - url: localhost:8077/api/v1
+    description: Production server
+paths:
+  /credits/{creditId}/payment:
+    post:
+      summary: Make a payment towards a credit
+      parameters:
+        - in: path
+          name: creditId
+          required: true
+          description: ID of the credit to which payment will be made
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditPaymentRequest'
+      responses:
+        '200':
+          description: Payment processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Bad request (e.g., payment exceeds pending amount)
+        '500':
+          description: Server error
+components:
+  schemas:
+    CreditPaymentRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Amount to be paid
+          format: double
+          minimum: 0.01
+    TransactionResponse:
+      type: object
+      properties:
+        creditId:
+          type: string
+          description: ID of the credit
+        amount:
+          type: number
+          description: Amount of the transaction
+          format: double
+        transactionDate:
+          type: string
+          description: Date and time of the transaction
+          format: date-time
+        type:
+          type: string
+          description: Type of transaction (e.g., "payment")

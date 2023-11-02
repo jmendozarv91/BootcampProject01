@@ -2,6 +2,7 @@ package nttd.bootcamp.microservices.accountmanagement.application.services;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import nttd.bootcamp.microservices.accountmanagement.application.mapper.AccountRequestMapper;
 import nttd.bootcamp.microservices.accountmanagement.application.mapper.AccountResponseMapper;
 import nttd.bootcamp.microservices.accountmanagement.application.usecases.AccountService;
@@ -31,6 +32,7 @@ import reactor.core.publisher.Mono;
  * Servicio que implementa los casos de uso de gestión de cuentas bancarias.
  */
 @Service
+@Log4j2
 @AllArgsConstructor
 //implementando mis casos de uso
 public class AccountManagementService implements AccountService {
@@ -108,7 +110,7 @@ public class AccountManagementService implements AccountService {
     // Guarda una cuenta personal validando ciertas condiciones.
     return customerServicePort.findClientById(request.getOwnerId())
         .flatMap(client -> {
-          if (ClientType.PERSONAL.toString().equals(client.getClientType())) {
+          if (ClientType.PERSONAL.getDescription().equals(client.getClientType())) {
             if (ProfileType.VIP.getCode().equals(client.getProfileType())) {
               // Verificar que el monto de apertura es al menos 500
               if (request.getBalance() < AccountConstant.MOUNT_MINIMUM_OPENING_AMOUNT_VIP) {
@@ -120,6 +122,7 @@ public class AccountManagementService implements AccountService {
               return creditCardServicePort.hasCreditCard(client.getId())
                   .flatMap(hasCreditCard -> {
                     if (!hasCreditCard) {
+                      log.error(AccountConstant.VIP_CLIENT_MUST_HAVE_CREDIT_CARD);
                       return Mono.error(new AccountException(HttpStatus.BAD_REQUEST,
                           AccountConstant.VIP_CLIENT_MUST_HAVE_CREDIT_CARD));
                     }
@@ -133,6 +136,7 @@ public class AccountManagementService implements AccountService {
               AccountConstant.ACCOUNT_REGISTRATION_ERROR));
         })
         .onErrorMap(ex -> {
+          log.error(ex);
           if (ex instanceof AccountException) {
             return ex;
           }

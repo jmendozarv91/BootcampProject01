@@ -19,7 +19,7 @@ public class ClientRepository {
     public Mono<ClientDto> getClient(String clientId){
         System.out.println("clientId : " + clientId);
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/api/v1/management-client/")
+                .uri(uriBuilder -> uriBuilder.path("/api/v1/client/")
                         .path(clientId)
                         .build())
                 .retrieve()  // inicia la solicitud

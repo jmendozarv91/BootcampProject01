@@ -12,7 +12,7 @@ public interface CreditCardService {
 
   Mono<CreditCardResponse> createNew(CreditCardRequest creditCardRequest);
 
-  Mono<CreditCardResponse> getById(String id);
+  Mono<CreditCardResponse> getCreditCardById(String id);
 
   Flux<CreditCardResponse> getAll();
 

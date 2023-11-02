@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public enum ClientType {
 
-  PERSONAL("01", "Cliente Personal"),
-  BUSINESS("02", "Cliente Empresarial");
+  PERSONAL("01", "personal"),
+  BUSINESS("02", "business");
 
   private final String code;
   private final String description;

@@ -77,15 +77,15 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successfully checked if the client has a credit card
           content:
             application/json:
               schema:
                 type: boolean
-        "400":
+        '400':
           description: Invalid client id provided
-        "500":
+        '500':
           description: Internal server error
 
   /credit-card/average-daily-balances:
@@ -124,6 +124,64 @@ paths:
         '500':
           description: Internal Server Error
 
+  /credit-card/{creditCardId}:
+    get:
+      summary: Get a credit card by ID
+      operationId: getCreditCardById
+      tags:
+        - Credit Card
+      parameters:
+        - name: creditCardId
+          in: path
+          required: true
+          description: Unique identifier of the credit card
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCardResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Credit card not found
+        '500':
+          description: Internal Server Error
+    put:
+      summary: Update a credit card
+      operationId: updateCreditCard
+      tags:
+        - Credit Card
+      parameters:
+        - name: creditCardId
+          in: path
+          required: true
+          description: Unique identifier of the credit card
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditCardRequest'
+      responses:
+        '200':
+          description: Credit card updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCardResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Credit card not found
+        '500':
+          description: Internal Server Error
+
 components:
   schemas:
     ErrorResponse:
@@ -155,6 +213,8 @@ components:
     CreditCardResponse:
       type: object
       properties:
+        id:
+          type: string
         cardId:
           type: string
         clientId:

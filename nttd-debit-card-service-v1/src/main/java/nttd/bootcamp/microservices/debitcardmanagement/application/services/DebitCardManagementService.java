@@ -15,11 +15,13 @@ import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.PerformT
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.PerformTransactionResponse;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.port.AccountServicePort;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.port.DebitCardPersistencePort;
+import nttd.bootcamp.microservices.debitcardmanagement.domain.port.TransactionServicePort;
 import nttd.bootcamp.microservices.debitcardmanagement.infraestructure.adapter.exception.BadRequestException;
 import nttd.bootcamp.microservices.debitcardmanagement.infraestructure.adapter.exception.DebitCardException;
 import nttd.bootcamp.microservices.debitcardmanagement.infraestructure.adapter.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -30,6 +32,7 @@ public class DebitCardManagementService implements DebitCardService {
 
   private final DebitCardPersistencePort debitCardPersistencePort;
   private final AccountServicePort accountServicePort;
+  private final TransactionServicePort transactionServicePort;
   private final DebitCardResponseMapper debitCardResponseMapper;
 
   @Override
@@ -37,7 +40,7 @@ public class DebitCardManagementService implements DebitCardService {
     // Validar que la cuenta principal exista y esté asociada al cliente
     Mono<Account> mainAccount = accountServicePort.findById(debitCardRequest.getAccountNumber())
         .switchIfEmpty(Mono.error(new DebitCardException(HttpStatus.BAD_REQUEST,
-            DebitCardConstant.MAIN_ACCOUNT_NOT_EXIST))  );
+            DebitCardConstant.MAIN_ACCOUNT_NOT_EXIST)));
 
     // Validar que las cuentas asociadas existan y estén asociadas al cliente
     Flux<Account> associatedAccounts = Flux.fromIterable(debitCardRequest.getAssociatedAccounts())
@@ -68,12 +71,15 @@ public class DebitCardManagementService implements DebitCardService {
   @Override
   public Mono<Void> associateDebitCardWithAccount(String cardNumber, String accountNumber) {
     return debitCardPersistencePort.findByCardNumber(cardNumber)
-        .switchIfEmpty(Mono.error(new NotFoundException(DebitCardConstant.DEBIT_CARD_NOT_FOUND_MESSAGE)))
+        .switchIfEmpty(
+            Mono.error(new NotFoundException(DebitCardConstant.DEBIT_CARD_NOT_FOUND_MESSAGE)))
         .flatMap(debitCard -> accountServicePort.findById(accountNumber)
-            .switchIfEmpty(Mono.error(new NotFoundException(DebitCardConstant.ACCOUNT_NOT_FOUND_MESSAGE)))
+            .switchIfEmpty(
+                Mono.error(new NotFoundException(DebitCardConstant.ACCOUNT_NOT_FOUND_MESSAGE)))
             .flatMap(account -> {
               if (debitCard.getAssociatedAccountIds().contains(account.getId())) {
-                return Mono.error(new BadRequestException(DebitCardConstant.ACCOUNT_ALREADY_ASSOCIATED));
+                return Mono.error(
+                    new BadRequestException(DebitCardConstant.ACCOUNT_ALREADY_ASSOCIATED));
               }
               debitCard.getAssociatedAccountIds().add(account.getId());
               return debitCardPersistencePort.update(debitCard)
@@ -85,7 +91,47 @@ public class DebitCardManagementService implements DebitCardService {
 
   @Override
   public Mono<PerformTransactionResponse> performTransaction(String cardNumber,
-      PerformTransactionRequest transactionRequest) {
-    return null;
+      PerformTransactionRequest request) {
+    return debitCardPersistencePort.findByCardNumber(cardNumber)
+        .switchIfEmpty(Mono.error(new DebitCardException(HttpStatus.NOT_FOUND,
+            DebitCardConstant.DEBIT_CARD_NOT_FOUND_MESSAGE)))
+        .flatMap(debitCard -> accountServicePort.findById(debitCard.getPrimaryAccountId())
+            .switchIfEmpty(Mono.error(new DebitCardException(HttpStatus.NOT_FOUND,
+                DebitCardConstant.MAIN_ACCOUNT_NOT_EXIST)))
+            .flatMap(mainAccount -> {
+              if (mainAccount.getBalance() >= request.getAmount()) {
+                return transactionServicePort.performTransaction(mainAccount.getId(),
+                        request.getAmount(), request.getTransactionType())
+                    .flatMap(transaction -> accountServicePort.updateAccountBalance(mainAccount.getId(),
+                        mainAccount.getBalance() - request.getAmount()))
+                    .map(updatedAccount -> new PerformTransactionResponse(transaction.getId()));
+              } else {
+                return performTransactionWithAssociatedAccounts(debitCard, request);
+              }
+            }));
+  }
+
+  private Mono<PerformTransactionResponse> performTransactionWithAssociatedAccounts(
+      DebitCard debitCard, PerformTransactionRequest request) {
+    return Flux.fromIterable(debitCard.getAssociatedAccountIds())
+        .concatMap(accountId -> accountServicePort.findById(accountId)
+            .switchIfEmpty(Mono.error(
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Associated account not found")))
+            .flatMap(account -> {
+              if (account.getBalance() >= request.getAmount()) {
+                return transactionServicePort.performTransaction(account.getId(),
+                        request.getAmount(), request.getTransactionType())
+                    .flatMap(transaction -> accountServicePort.updateAccountBalance(account.getId(),
+                        account.getBalance() - request.getAmount()))
+                    .map(updatedAccount -> new PerformTransactionResponse(transaction.getId()));
+              } else {
+                return Mono.empty();
+              }
+
+            }))
+        .next()
+        .switchIfEmpty(Mono.error(
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient balance")));
+
   }
 }

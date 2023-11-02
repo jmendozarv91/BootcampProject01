@@ -17,36 +17,50 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class AccountController implements AccountManagementApi {
 
-
   private final AccountManagementService accountManagementService;
 
   @Override
   public Mono<ResponseEntity<AccountResponse>> getAccount(String accountId,
       ServerWebExchange exchange) {
-    return null;
+    return accountManagementService.findById(accountId)
+        .map(ResponseEntity::ok)
+        .defaultIfEmpty(ResponseEntity.notFound().build());
   }
+
 
   @Override
   public Mono<ResponseEntity<AccountResponse>> modifyAccountBalance(String id,
       Mono<AccountBalanceRequest> accountBalanceRequest, ServerWebExchange exchange) {
-    return null;
+    return accountBalanceRequest
+        .flatMap(request -> accountManagementService.updateBalanceAccount(id, request))
+        .map(ResponseEntity::ok)
+        .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
   @Override
   public Mono<ResponseEntity<AccountResponse>> saveAccountBusiness(
       Mono<AccountRequest> accountRequest, ServerWebExchange exchange) {
-    return null;
+    return accountRequest
+        .flatMap(accountManagementService::saveAccountBusiness)
+        .map(ResponseEntity::ok)
+        .onErrorResume(ex -> Mono.just(ResponseEntity.badRequest().build()));
   }
 
   @Override
   public Mono<ResponseEntity<AccountResponse>> saveAccountPersonal(
       Mono<AccountRequest> accountRequest, ServerWebExchange exchange) {
-    return null;
+    return accountRequest
+        .flatMap(accountManagementService::saveAccountPersonal)
+        .map(ResponseEntity::ok)
+        .onErrorResume(ex -> Mono.just(ResponseEntity.badRequest().build()));
   }
 
   @Override
   public Mono<ResponseEntity<TransactionResponse>> makeTransfer(
       Mono<TransferRequest> transferRequest, ServerWebExchange exchange) {
-    return null;
+    return transferRequest
+        .flatMap(accountManagementService::transferAccount)
+        .map(ResponseEntity::ok)
+        .onErrorResume(ex -> Mono.just(ResponseEntity.badRequest().build()));
   }
 }

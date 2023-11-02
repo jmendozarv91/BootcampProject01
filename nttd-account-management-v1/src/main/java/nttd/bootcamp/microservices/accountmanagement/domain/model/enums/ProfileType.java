@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum ProfileType {
-  VIP("VIP"),
-  PYME("PYME");
+  VIP("vip"),
+  PYME("pyme");
 
   private final String code;
 

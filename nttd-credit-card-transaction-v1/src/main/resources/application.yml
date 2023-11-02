@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: local
+  webflux:
+    base-path: /api/v1
+
+#      host:
+#      port:
+server:
+  port: 8078
+#      password:
+
+#logging:
+#  level:
+#    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+#    org.mongodb.driver.protocol.command: DEBUG

@@ -141,6 +141,9 @@ components:
         minimumOpeningAmount:
           type: number
           format: double
+        bankId:
+          type: string
+          description: Optional bank ID associated with the account.
     AccountResponse:
       type: object
       properties:
@@ -164,6 +167,9 @@ components:
         minimumOpeningAmount:
           type: number
           format: double
+        bankId:
+          type: string
+          description: Optional bank ID associated with the account.
     AccountBalanceRequest:
       type: object
       properties:

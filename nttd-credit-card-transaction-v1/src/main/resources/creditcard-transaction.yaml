@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  title: Credit Card Transaction API
+  version: 1.0.0
+  description: API for managing credit card transactions.
+servers:
+  - url: http://localhost:8078/api/v1
+    description: Development server
+
+paths:
+  /credit-card/consumption:
+    post:
+      summary: Process a consumption on a credit card
+      operationId: processConsumption
+      tags:
+        - Credit Card Transaction
+      parameters:
+        - name: clientId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: creditCardId
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsumptionRequest'
+      responses:
+        '200':
+          description: Transaction processed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsumptionResponse'
+        '400':
+          description: Bad Request.
+        '500':
+          description: Internal Server Error.
+
+components:
+  schemas:
+    ConsumptionRequest:
+      type: object
+      required:
+        - amount
+      properties:
+        amount:
+          type: number
+          format: double
+
+    ConsumptionResponse:
+      type: object
+      required:
+        - transactionId
+        - clientId
+        - creditCardId
+        - amount
+        - transactionDate
+      properties:
+        transactionId:
+          type: string
+          description: The unique identifier for the transaction.
+        clientId:
+          type: string
+          description: The unique identifier for the client.
+        creditCardId:
+          type: string
+          description: The unique identifier for the credit card.
+        amount:
+          type: number
+          format: double
+          description: The amount of money that was transacted.
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date and time when the transaction was made.

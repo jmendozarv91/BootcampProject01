@@ -25,5 +25,6 @@ public interface AccountRequestMapper {
   @Mapping(source = "maintenanceFee", target = "maintenanceFee")
   @Mapping(source = "ownerId", target = "ownerId")
   @Mapping(source = "minimumOpeningAmount", target = "minimumOpeningAmount")
+  @Mapping(source = "bankId", target = "bankId")
   Account toDomain(AccountRequest request);
 }

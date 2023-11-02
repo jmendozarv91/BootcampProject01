@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CreditCardDboMapper {
 
+  @Mapping(source = "id", target = "id")
   @Mapping(source = "cardId", target = "cardId")
   @Mapping(source = "clientId", target = "clientId")
   @Mapping(source = "creditLimit", target = "creditLimit")

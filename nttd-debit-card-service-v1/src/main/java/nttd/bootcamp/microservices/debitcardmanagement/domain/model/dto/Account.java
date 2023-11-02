@@ -15,4 +15,5 @@ public class Account {
   private String id;
   private String accountNumber;
   private String accountType;
+  private Double balance;
 }

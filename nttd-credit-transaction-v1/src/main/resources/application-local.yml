@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/BankNttda
+
+
+
+
+bank-nttdata:
+  client:
+    credit:
+      baseUrl: http://localhost:8084/api/v1/credit-service/credits/

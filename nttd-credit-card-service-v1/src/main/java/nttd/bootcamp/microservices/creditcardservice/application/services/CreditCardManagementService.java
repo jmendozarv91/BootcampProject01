@@ -3,7 +3,7 @@ package nttd.bootcamp.microservices.creditcardservice.application.services;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import nttd.bootcamp.microservices.creditcardservice.application.mapper.CreditCardDtoMapper;
+import nttd.bootcamp.microservices.creditcardservice.application.mapper.CreditCardResponseMapper;
 import nttd.bootcamp.microservices.creditcardservice.application.mapper.CreditCardRequestMapper;
 import nttd.bootcamp.microservices.creditcardservice.application.usecases.CreditCardService;
 import nttd.bootcamp.microservices.creditcardservice.domain.model.CreditCard;
@@ -17,7 +17,6 @@ import nttd.bootcamp.microservices.creditcardservice.domain.port.CustomerService
 import nttd.bootcamp.microservices.creditcardservice.domain.port.TransactionServicePort;
 import nttd.bootcamp.microservices.creditcardservice.infraestructure.adapters.exception.CreditCardException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -32,7 +31,7 @@ public class CreditCardManagementService implements CreditCardService {
   private final CreditCardPersistencePort creditCardPersistencePort;
   private final CustomerServicePort customerServicePort;
   private final TransactionServicePort transactionServicePort;
-  private final CreditCardDtoMapper creditCardDtoMapper;
+  private final CreditCardResponseMapper creditCardDtoMapper;
   private final CreditCardRequestMapper creditCardRequestMapper;
 
 
@@ -64,7 +63,7 @@ public class CreditCardManagementService implements CreditCardService {
    * @return un Mono que contiene la respuesta con los detalles de la tarjeta de crédito.
    */
   @Override
-  public Mono<CreditCardResponse> getById(String id) {
+  public Mono<CreditCardResponse> getCreditCardById(String id) {
     return creditCardPersistencePort.getById(id).map(creditCardDtoMapper::toDto);
   }
 
@@ -106,10 +105,19 @@ public class CreditCardManagementService implements CreditCardService {
    */
   @Override
   public Mono<CreditCardResponse> update(CreditCardRequest request, String id) {
-    CreditCard creditCardToUpdate = creditCardRequestMapper.toDomain(request);
-    creditCardToUpdate.setCreditLimit(BigDecimal.valueOf(request.getCreditLimit()));
-    creditCardToUpdate.setAvailableBalance(BigDecimal.valueOf(request.getAvailableBalance()));
-    return creditCardPersistencePort.update(creditCardToUpdate).map(creditCardDtoMapper::toDto);
+    return creditCardPersistencePort.getById(id)
+        .switchIfEmpty(Mono.error(
+            new CreditCardException(HttpStatus.NOT_FOUND,
+                CreditCardConstant.CURRENT_CREDIT_CARD_NOT_FOUND)))
+        .flatMap(existingAccount -> {
+          existingAccount.setId(id);
+          existingAccount.setAvailableBalance(BigDecimal.valueOf(request.getAvailableBalance()));
+          existingAccount.setCreditLimit(BigDecimal.valueOf(request.getCreditLimit()));
+          return creditCardPersistencePort.update(existingAccount);
+        })
+        .map(creditCardDtoMapper::toDto)
+        .onErrorResume(ex -> Mono.error(
+            new CreditCardException(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error")));
   }
 
   /**
