@@ -13,6 +13,9 @@ public interface CreditCardTxPersistencePort {
 
   Flux<CreditCardTx> getAll();
 
+  Flux<CreditCardTx> getTransactionsById(String id);
+  Flux<CreditCardTx> getTransactionsByClientId(String clientId);
+
   Mono<Void> deleteById(String id);
 
   Mono<CreditCardTx> update(CreditCardTx model);

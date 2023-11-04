@@ -43,6 +43,35 @@ paths:
         '500':
           description: Internal Server Error.
 
+  /credit-card/{clientId}/transactions:
+    get:
+      summary: Retrieve transactions for a client id
+      operationId: getCreditCardTransactions
+      tags:
+        - Credit Card Transaction
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of client Id
+      responses:
+        '200':
+          description: List of transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCardTransactionResponse'
+        '400':
+          description: Bad Request if the query parameters are incorrect
+        '404':
+          description: Credit card not found
+        '500':
+          description: Internal Server Error
+
 components:
   schemas:
     ConsumptionRequest:
@@ -69,6 +98,29 @@ components:
         clientId:
           type: string
           description: The unique identifier for the client.
+        creditCardId:
+          type: string
+          description: The unique identifier for the credit card.
+        amount:
+          type: number
+          format: double
+          description: The amount of money that was transacted.
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date and time when the transaction was made.
+
+    CreditCardTransactionResponse:
+      type: object
+      required:
+        - transactionId
+        - creditCardId
+        - amount
+        - transactionDate
+      properties:
+        transactionId:
+          type: string
+          description: The unique identifier for the transaction.
         creditCardId:
           type: string
           description: The unique identifier for the credit card.

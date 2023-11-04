@@ -4,6 +4,7 @@ import nttd.bootcamp.microservices.accounttransaction.domain.model.dto.Transacti
 import nttd.bootcamp.microservices.accounttransaction.domain.model.dto.TransactionResponse;
 import nttd.bootcamp.microservices.accounttransaction.domain.model.dto.TransferRequest;
 import nttd.bootcamp.microservices.accounttransaction.domain.model.dto.TransferResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface AccountTransactionService {
@@ -14,5 +15,7 @@ public interface AccountTransactionService {
   Mono<TransactionResponse> withdrawalTransaction(String accountId, TransactionRequest request);
 
   Mono<TransferResponse> makeTransfer(TransferRequest request);
+
+  Flux<TransactionResponse> getAccountTransactions(String accountId);
 
 }

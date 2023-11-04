@@ -122,11 +122,12 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <inputSpec>${project.basedir}/src/main/resources/creditcard-transaction.yaml</inputSpec>
+              <inputSpec>${project.basedir}/src/main/resources/creditcard-transaction.yaml
+              </inputSpec>
               <generatorName>spring</generatorName>
               <library>spring-boot</library>
               <modelPackage>
-                nttd.bootcamp.microservices.creditcardtransaction.creditcardtransaction.domain.model.dto
+                nttd.bootcamp.microservices.credittransaction.domain.model.dto
               </modelPackage>
               <supportingFilesToGenerate>false</supportingFilesToGenerate>
               <configOptions>
@@ -145,11 +146,12 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <inputSpec>${project.basedir}/src/main/resources/creditcard-transaction.yaml</inputSpec>
+              <inputSpec>${project.basedir}/src/main/resources/creditcard-transaction.yaml
+              </inputSpec>
               <generatorName>spring</generatorName>
               <library>spring-boot</library>
               <modelPackage>
-                nttd.bootcamp.microservices.creditcardtransaction.creditcardtransaction.domain.model.dto
+                nttd.bootcamp.microservices.credittransaction.domain.model.dto
               </modelPackage>
               <supportingFilesToGenerate>false</supportingFilesToGenerate>
               <configOptions>
@@ -157,7 +159,7 @@
                 <interfaceOnly>true</interfaceOnly>
                 <skipDefaultInterface>true</skipDefaultInterface>
               </configOptions>
-              <modelsToGenerate>ConsumptionResponse
+              <modelsToGenerate>ConsumptionResponse,CreditCardTransactionResponse
               </modelsToGenerate> <!-- Names of Response DTOs -->
             </configuration>
           </execution>

@@ -28,12 +28,17 @@ public class AccountTransactionRepositoryAdapter implements AccountTransactionPe
 
   @Override
   public Mono<Transaction> getById(String id) {
-    return null;
+    return accountTransactionRepository.findById(id).map(accountTransactionDboMapper::toDomain);
   }
 
   @Override
   public Flux<Transaction> getAll() {
-    return null;
+    return accountTransactionRepository.findAll().map(accountTransactionDboMapper::toDomain);
+  }
+
+  @Override
+  public Flux<Transaction> getTransactionsByOwnerId(String ownerId) {
+    return accountTransactionRepository.findAllByOwnerId(ownerId).map(accountTransactionDboMapper::toDomain);
   }
 
   @Override

@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Inquiry Reporting Services
-  description: Service to generate average balance reports
+  description: Service to generate average balance reports and inquire balances in bank accounts and credit cards.
   version: "1.0"
 servers:
   - url: localhost:8081/api/v1
@@ -33,6 +33,80 @@ paths:
           description: Client not found
         '500':
           description: Internal server error
+
+  /reports/accounts/{accountId}/balance:
+    get:
+      summary: Get account balance
+      operationId: getAccountBalance
+      tags:
+        - account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: Unique identifier of the account
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBalanceResponse'
+        '404':
+          description: Account not found
+
+  /reports/credit-cards/{cardId}/balance:
+    get:
+      summary: Get credit card balance
+      operationId: getCreditCardBalance
+      tags:
+        - credit-card
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: Unique identifier of the credit card
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCardBalanceResponse'
+        '404':
+          description: Credit card not found
+
+  /reports/transactions/{clientId}:
+    get:
+      operationId: getTransactions
+      summary: Get all transactions for a client's bank products
+      tags:
+        - transactions
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          description: The client's ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: Client not found
+        '500':
+          description: Internal server error
+
 components:
   schemas:
     AverageBalanceSummaryResponse:
@@ -48,3 +122,132 @@ components:
           type: number
           format: double
           description: The average balance for the month
+
+    AccountBalanceResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+        balance:
+          type: number
+          format: double
+
+    CreditCardBalanceResponse:
+      type: object
+      properties:
+        cardId:
+          type: string
+        balance:
+          type: number
+          format: double
+
+    AccountTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+          description: Unique identifier of the account
+        amount:
+          type: number
+          format: double
+        ownerId:
+          type: string
+          description: The owner's client ID
+        transactionDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+        transferDetails:
+          $ref: '#/components/schemas/TransferDetails'
+
+    TransferDetails:
+      type: object
+      properties:
+        fromAccountId:
+          type: string
+          description: ID of the account from where the transfer originated
+        toAccountId:
+          type: string
+          description: ID of the account to where the transfer was made
+      required:
+        - fromAccountId
+        - toAccountId
+
+    CreditTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+          format: double
+        clientId:
+          type: string
+        creditId:
+          type: string
+        transactionDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+          description: Type of transaction (payment)
+
+    CreditCardTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+        amount:
+          type: number
+          format: double
+        clientId:
+          type: string
+        creditCardId:
+          type: string
+        transactionDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+          description: Type of transaction (charge)
+
+    Transaction:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of transaction (Account, Credit, CreditCard)
+        details:
+          allOf:
+            - $ref: '#/components/schemas/AccountTransaction'
+            - $ref: '#/components/schemas/CreditTransaction'
+            - $ref: '#/components/schemas/CreditCardTransaction'
+
+    TransactionsResponse:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: The client's ID
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionWrapper'
+    TransactionWrapper:
+      type: object
+      properties:
+        account:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountTransaction'
+        credit:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditTransaction'
+        creditcard:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditCardTransaction'

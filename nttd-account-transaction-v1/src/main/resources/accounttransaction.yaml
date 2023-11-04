@@ -13,7 +13,7 @@ paths:
       summary: Create a new deposit transaction.
       operationId: depositTransaction
       tags:
-        - Transaction
+        - Transactions
       parameters:
         - name: accountId
           in: path
@@ -46,7 +46,7 @@ paths:
       summary: Create a new withdrawal transaction.
       operationId: withdrawalTransaction
       tags:
-        - Transaction
+        - Transactions
       parameters:
         - name: accountId
           in: path
@@ -79,7 +79,7 @@ paths:
       summary: Make a transfer between accounts.
       operationId: makeTransfer
       tags:
-        - Transaction
+        - Transactions
       requestBody:
         required: true
         content:
@@ -95,6 +95,45 @@ paths:
                 $ref: '#/components/schemas/TransferResponse'
         '400':
           description: Invalid transfer request.
+        '404':
+          description: Account not found.
+        '500':
+          description: Internal server error.
+
+  /accounts/{ownerId}/transactions:
+    get:
+      summary: Retrieve transactions for a specific account.
+      operationId: getAccountTransactions
+      tags:
+        - Transactions
+      parameters:
+        - name: ownerId
+          in: path
+          required: true
+          description: The unique ID of the account owner for which to retrieve transactions.
+          schema:
+            type: string
+        - name: transactionType
+          in: query
+          required: false
+          description: Filter transactions by type (deposit, withdrawal, transfer).
+          schema:
+            type: string
+            enum:
+              - deposit
+              - withdrawal
+              - transfer
+      responses:
+        '200':
+          description: A list of transactions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Bad request.
         '404':
           description: Account not found.
         '500':
@@ -118,7 +157,7 @@ components:
           enum:
             - deposit
             - withdrawal
-          description: The transaction type.
+          description: The type of transaction.
 
     TransactionResponse:
       type: object
@@ -126,6 +165,7 @@ components:
         - id
         - accountId
         - amount
+        - ownerId
         - transactionType
         - createdAt
       properties:
@@ -135,21 +175,26 @@ components:
         accountId:
           type: string
           description: The account ID.
+        ownerId:
+          type: string
+          description: The owner account ID.
         amount:
           type: number
           format: double
-          description: The transaction amount.
+          description: The amount of the transaction.
         transactionType:
           type: string
           enum:
             - deposit
             - withdrawal
-          description: The transaction type.
+            - transfer
+          description: The type of transaction.
         createdAt:
           type: string
           format: date-time
-          description: The transaction creation date.
-
+          description: The date and time when the transaction was created.
+        transferDetails:
+          $ref: '#/components/schemas/TransferDetails'
     TransferRequest:
       type: object
       required:
@@ -168,6 +213,33 @@ components:
           format: double
           minimum: 0.01
           description: The amount of money to be transferred.
+
+    TransferResponse:
+      type: object
+      required:
+        - id
+        - amount
+        - ownerId
+        - transactionDate
+        - transferDetails
+      properties:
+        id:
+          type: string
+          description: The transaction ID.
+        amount:
+          type: number
+          format: double
+          description: The amount transferred.
+        ownerId:
+          type: string
+          description: Owner Id.
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date and time of the transaction.
+        transferDetails:
+          $ref: '#/components/schemas/TransferDetails'
+
     TransferDetails:
       type: object
       required:
@@ -180,30 +252,3 @@ components:
         toAccountId:
           type: string
           description: The ID of the account to which the funds are to be transferred.
-    TransferResponse:
-      type: object
-      required:
-        - id
-        - type
-        - amount
-        - transactionDate
-        - transferDetails
-      properties:
-        id:
-          type: string
-          description: The transaction ID.
-        type:
-          type: string
-          enum:
-            - transfer
-          description: The transaction type.
-        amount:
-          type: number
-          format: double
-          description: The transaction amount.
-        transactionDate:
-          type: string
-          format: date-time
-          description: The transaction creation date.
-        transferDetails:
-          $ref: '#/components/schemas/TransferDetails'

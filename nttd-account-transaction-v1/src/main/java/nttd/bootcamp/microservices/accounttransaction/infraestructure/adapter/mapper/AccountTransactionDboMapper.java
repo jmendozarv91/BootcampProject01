@@ -12,9 +12,10 @@ import nttd.bootcamp.microservices.accounttransaction.infraestructure.adapter.en
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.Qualifier;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface AccountTransactionDboMapper {
 
 
@@ -22,22 +23,12 @@ public interface AccountTransactionDboMapper {
   @Mapping(source = "type", target = "type")
   @Mapping(source = "amount", target = "amount")
   @Mapping(source = "transactionDate", target = "transactionDate")
+  @Mapping(source = "ownerId", target = "ownerId")
   TransactionEntity toDbo(Transaction domain);
 
 
   @InheritConfiguration
   Transaction toDomain(TransactionEntity entity);
 
-//  @ToOffsetDateTime
-//  default OffsetDateTime toOffsetDateTime(LocalDateTime localDateTime) {
-//    return localDateTime != null ? localDateTime.atOffset(ZoneOffset.UTC) : null;
-//  }
-//
-//  @Qualifier
-//  @Target(ElementType.METHOD)
-//  @Retention(RetentionPolicy.CLASS)
-//  @interface ToOffsetDateTime {
-//
-//  }
 
 }

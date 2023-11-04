@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import nttd.bootcamp.microservices.credittransaction.domain.model.CreditTx;
+import nttd.bootcamp.microservices.credittransaction.domain.model.dto.CreditTransactionResponse;
 import nttd.bootcamp.microservices.credittransaction.domain.model.dto.TransactionResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,8 +21,16 @@ public interface CreditTxResponseMapper {
   @Mapping(source = "creditId", target = "creditId")
   @Mapping(source = "type", target = "type")
   @Mapping(source = "amount", target = "amount")
+  @Mapping(source = "clientId", target = "clientId")
   @Mapping(source = "transactionDate", target = "transactionDate", qualifiedBy = ToOffsetDateTime.class)
   TransactionResponse toDto(CreditTx model);
+
+  @Mapping(source = "creditId", target = "creditId")
+  @Mapping(source = "type", target = "type")
+  @Mapping(source = "amount", target = "amount")
+  @Mapping(source = "clientId", target = "clientId")
+  @Mapping(source = "transactionDate", target = "transactionDate", qualifiedBy = ToOffsetDateTime.class)
+  CreditTransactionResponse toDtoCreditTransaction(CreditTx model);
 
 
   @ToOffsetDateTime

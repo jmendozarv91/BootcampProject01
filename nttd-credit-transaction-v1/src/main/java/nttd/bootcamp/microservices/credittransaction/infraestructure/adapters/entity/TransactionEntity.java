@@ -25,5 +25,6 @@ public class TransactionEntity {
   @Field(targetType = FieldType.DATE_TIME)
   private LocalDateTime transactionDate;
   private String creditId;
+  private String clientId;
 
 }

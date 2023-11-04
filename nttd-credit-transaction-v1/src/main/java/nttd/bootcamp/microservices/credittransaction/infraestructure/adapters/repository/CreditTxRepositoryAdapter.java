@@ -35,6 +35,11 @@ public class CreditTxRepositoryAdapter implements CreditTxPersistencePort {
   }
 
   @Override
+  public Flux<CreditTx> getAllByClientId(String clientId) {
+    return creditCardTxRepository.findAllByClientId(clientId).map(creditCardTxDboMapper::toDomain);
+  }
+
+  @Override
   public Mono<Void> deleteById(String id) {
     return null;
   }

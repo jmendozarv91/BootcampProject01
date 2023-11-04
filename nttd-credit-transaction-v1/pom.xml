@@ -157,7 +157,7 @@
                 <interfaceOnly>true</interfaceOnly>
                 <skipDefaultInterface>true</skipDefaultInterface>
               </configOptions>
-              <modelsToGenerate>TransactionResponse
+              <modelsToGenerate>TransactionResponse,CreditTransactionResponse
               </modelsToGenerate> <!-- Names of Response DTOs -->
             </configuration>
           </execution>

@@ -32,4 +32,6 @@ public class TransactionEntity {
   private LocalDateTime transactionDate;
   @Field(targetType = FieldType.IMPLICIT)
   private TransferDetails transferDetails;
+  @Field(targetType = FieldType.IMPLICIT)
+  private String ownerId;
 }

@@ -1,20 +1,23 @@
 openapi: 3.0.0
 info:
-  version: 1.0.0
+  version: "1.0.0"
   title: Credit Microservice
   description: API for managing credit operations
 servers:
-  - url: localhost:8077/api/v1
+  - url: http://localhost:8077/api/v1
     description: Production server
 paths:
   /credits/{creditId}/payment:
     post:
       summary: Make a payment towards a credit
+      operationId: makeCreditPayment
+      tags:
+        - credit
       parameters:
-        - in: path
-          name: creditId
+        - name: creditId
+          in: path
           required: true
-          description: ID of the credit to which payment will be made
+          description: ID of the credit to which the payment will be made
           schema:
             type: string
       requestBody:
@@ -33,31 +36,92 @@ paths:
         '400':
           description: Bad request (e.g., payment exceeds pending amount)
         '500':
-          description: Server error
+          description: Internal server error
+
+  /credits/{clientId}/transactions:
+    get:
+      summary: Retrieve credit transactions for a client
+      operationId: getCreditTransactions
+      tags:
+        - credit
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          description: Client's unique identifier to fetch transactions for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditTransactionResponse'
+        '404':
+          description: No transactions found for the client
+        '500':
+          description: Internal server error
+
 components:
   schemas:
     CreditPaymentRequest:
       type: object
+      required:
+        - amount
       properties:
         amount:
           type: number
-          description: Amount to be paid
           format: double
+          description: Amount to be paid
           minimum: 0.01
+
     TransactionResponse:
       type: object
       properties:
         creditId:
           type: string
           description: ID of the credit
+        clientId:
+          type: string
+          description: Client's ID
         amount:
           type: number
-          description: Amount of the transaction
           format: double
+          description: Amount of the transaction
         transactionDate:
           type: string
-          description: Date and time of the transaction
           format: date-time
+          description: Date and time of the transaction
         type:
           type: string
           description: Type of transaction (e.g., "payment")
+
+    CreditTransactionResponse:
+      type: object
+      required:
+        - creditId
+        - clientId
+        - amount
+        - transactionDate
+        - type
+      properties:
+        creditId:
+          type: string
+          description: Unique identifier of the credit account
+        clientId:
+          type: string
+          description: Unique identifier of the client
+        amount:
+          type: number
+          format: double
+          description: Amount of the transaction
+        transactionDate:
+          type: string
+          format: date-time
+          description: Date and time when the transaction occurred
+        type:
+          type: string
+          description: Type of transaction (e.g., payment, charge)

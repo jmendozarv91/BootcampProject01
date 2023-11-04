@@ -25,6 +25,16 @@ public class CreditCardTxRepositoryAdapter implements CreditCardTxPersistencePor
   }
 
   @Override
+  public Flux<CreditCardTx> getTransactionsById(String id) {
+    return creditCardTxRepository.findAllById(id).map(creditCardTxDboMapper::toDomain);
+  }
+
+  @Override
+  public Flux<CreditCardTx> getTransactionsByClientId(String clientId) {
+    return creditCardTxRepository.findAllByClientId(clientId).map(creditCardTxDboMapper::toDomain);
+  }
+
+  @Override
   public Mono<CreditCardTx> getById(String id) {
     return creditCardTxRepository.findById(id).map(creditCardTxDboMapper::toDomain);
   }

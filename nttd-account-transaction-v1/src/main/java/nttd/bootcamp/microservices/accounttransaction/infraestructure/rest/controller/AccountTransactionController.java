@@ -10,6 +10,7 @@ import org.openapitools.api.AccountsApi;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -48,4 +49,17 @@ public class AccountTransactionController implements AccountsApi {
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
+
+  @Override
+  public Mono<ResponseEntity<Flux<TransactionResponse>>> getAccountTransactions(String ownerId,
+      String transactionType, ServerWebExchange exchange) {
+    Flux<TransactionResponse> transactionFlux = accountTransactionManagementService.getAccountTransactions(
+        ownerId);
+    return transactionFlux.hasElements()
+        .map(hasElements -> hasElements ?
+            ResponseEntity.ok().body(transactionFlux) :
+            ResponseEntity.notFound().build()
+        );
+  }
+
 }

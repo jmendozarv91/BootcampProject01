@@ -115,29 +115,6 @@
         <artifactId>openapi-generator-maven-plugin</artifactId>
         <version>5.3.0</version>
         <executions>
-          <!-- Generate Request DTOs -->
-          <!--					<execution>-->
-          <!--						<id>generate-requests</id>-->
-          <!--						<goals>-->
-          <!--							<goal>generate</goal>-->
-          <!--						</goals>-->
-          <!--						<configuration>-->
-          <!--							<inputSpec>${project.basedir}/src/main/resources/creditcardservice.yaml</inputSpec>-->
-          <!--							<generatorName>spring</generatorName>-->
-          <!--							<library>spring-boot</library>-->
-          <!--							<modelPackage>-->
-          <!--								nttd.bootcamp.microservices.inquiryreport.inquiryservices.domain.model.dto-->
-          <!--							</modelPackage>-->
-          <!--							<supportingFilesToGenerate>false</supportingFilesToGenerate>-->
-          <!--							<configOptions>-->
-          <!--								<reactive>true</reactive>-->
-          <!--								<interfaceOnly>true</interfaceOnly>-->
-          <!--								<skipDefaultInterface>true</skipDefaultInterface>-->
-          <!--							</configOptions>-->
-          <!--							<modelsToGenerate>CreditCardRequest,ConsumptionRequest</modelsToGenerate>-->
-          <!--						</configuration>-->
-          <!--					</execution>-->
-
           <!-- Generate Response DTOs -->
           <execution>
             <id>generate-responses</id>
@@ -157,7 +134,8 @@
                 <interfaceOnly>true</interfaceOnly>
                 <skipDefaultInterface>true</skipDefaultInterface>
               </configOptions>
-              <modelsToGenerate>AverageBalanceSummaryResponse
+              <modelsToGenerate>
+                AverageBalanceSummaryResponse,AccountBalanceResponse,CreditCardBalanceResponse,AccountTransaction,TransferDetails,CreditTransaction,CreditCardTransaction,Transaction,TransactionsResponse,TransactionWrapper
               </modelsToGenerate> <!-- Names of Response DTOs -->
             </configuration>
           </execution>

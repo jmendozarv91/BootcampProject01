@@ -10,6 +10,7 @@ import nttd.bootcamp.microservices.credittransaction.domain.model.CreditCardTx;
 import nttd.bootcamp.microservices.credittransaction.domain.model.constants.CreditCardTxConstant;
 import nttd.bootcamp.microservices.credittransaction.domain.model.dto.ConsumptionRequest;
 import nttd.bootcamp.microservices.credittransaction.domain.model.dto.ConsumptionResponse;
+import nttd.bootcamp.microservices.credittransaction.domain.model.dto.CreditCardTransactionResponse;
 import nttd.bootcamp.microservices.credittransaction.domain.model.enums.TransactionType;
 import nttd.bootcamp.microservices.credittransaction.domain.port.CreditCardServicePort;
 import nttd.bootcamp.microservices.credittransaction.domain.port.CreditCardTxPersistencePort;
@@ -18,6 +19,7 @@ import nttd.bootcamp.microservices.credittransaction.infraestructure.adapters.ex
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -29,6 +31,12 @@ public class CreditCardTxManagementService implements CreditCardTxService {
   private final CreditCardTxRequestMapper creditCardTxRequestMapper;
   private final CreditCardTxResponseMapper creditCardTxResponseMapper;
   private final CustomerServicePort customerServicePort;
+
+  @Override
+  public Flux<CreditCardTransactionResponse> getCreditCardTransactions(String clientId) {
+    return creditCardTxPersistencePort.getTransactionsByClientId(clientId)
+        .map(creditCardTxResponseMapper::toDtoCreditCardTransaction);
+  }
 
   @Override
   @Transactional

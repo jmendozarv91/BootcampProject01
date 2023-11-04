@@ -2,3 +2,14 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/BankNttda
+
+
+
+bank-nttdata:
+  client:
+    credit-tx:
+      baseUrl: http://localhost:8077/api/v1/credits/
+    credit-card-tx:
+      baseUrl: http://localhost:8078/api/v1/credit-card/
+    account-tx:
+      baseUrl: http://localhost:8085/api/v1/accounts/

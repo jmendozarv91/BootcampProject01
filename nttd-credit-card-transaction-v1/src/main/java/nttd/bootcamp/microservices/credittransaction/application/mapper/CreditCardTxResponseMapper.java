@@ -10,6 +10,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import nttd.bootcamp.microservices.credittransaction.domain.model.CreditCardTx;
 import nttd.bootcamp.microservices.credittransaction.domain.model.dto.ConsumptionResponse;
+import nttd.bootcamp.microservices.credittransaction.domain.model.dto.CreditCardTransactionResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Qualifier;
@@ -21,8 +22,15 @@ public interface CreditCardTxResponseMapper {
   @Mapping(target = "clientId", source = "clientId")
   @Mapping(target = "creditCardId", source = "creditCardId")
   @Mapping(target = "amount", source = "amount")
-  @Mapping(target = "transactionDate", source = "transactionDate" , qualifiedBy = ToOffsetDateTime.class)
+  @Mapping(target = "transactionDate", source = "transactionDate", qualifiedBy = ToOffsetDateTime.class)
   ConsumptionResponse toDto(CreditCardTx domain);
+
+  @Mapping(target = "transactionId", source = "id")
+  @Mapping(target = "creditCardId", source = "creditCardId")
+  @Mapping(target = "amount", source = "amount")
+  @Mapping(target = "transactionDate", source = "transactionDate", qualifiedBy = ToOffsetDateTime.class)
+  CreditCardTransactionResponse toDtoCreditCardTransaction(CreditCardTx domain);
+
   @ToOffsetDateTime
   default OffsetDateTime toOffsetDateTime(LocalDateTime localDateTime) {
     return localDateTime != null ? localDateTime.atOffset(ZoneOffset.UTC) : null;
@@ -32,5 +40,6 @@ public interface CreditCardTxResponseMapper {
   @Target(ElementType.METHOD)
   @Retention(RetentionPolicy.CLASS)
   @interface ToOffsetDateTime {
+
   }
 }

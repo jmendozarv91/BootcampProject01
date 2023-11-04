@@ -13,6 +13,8 @@ public interface AccountTransactionPersistencePort {
 
   Flux<Transaction> getAll();
 
+  Flux<Transaction> getTransactionsByOwnerId(String ownerId);
+
   Mono<Void> deleteById(String id);
 
   Mono<Transaction> update(Transaction transaction);

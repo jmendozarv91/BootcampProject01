@@ -13,6 +13,8 @@ public interface CreditTxPersistencePort {
 
   Flux<CreditTx> getAll();
 
+  Flux<CreditTx> getAllByClientId(String clientId);
+
   Mono<Void> deleteById(String id);
 
   Mono<CreditTx> update(CreditTx model);

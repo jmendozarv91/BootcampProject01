@@ -2,11 +2,11 @@ package nttd.bootcamp.microservices.creditcardservice.infraestructure.rest.advic
 
 import nttd.bootcamp.microservices.creditcardservice.infraestructure.adapters.exception.CreditCardException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
-@ControllerAdvice
+@RestControllerAdvice
 public class CreditControllerAdvice {
 
   @ExceptionHandler(CreditCardException.class)

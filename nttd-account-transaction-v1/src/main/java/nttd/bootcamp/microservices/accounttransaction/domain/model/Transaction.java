@@ -23,4 +23,5 @@ public class Transaction {
   private String description;
   private LocalDateTime transactionDate;
   private TransferDetails transferDetails;
+  private String ownerId;
 }

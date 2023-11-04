@@ -13,6 +13,7 @@ public interface CreditTxDboMapper {
   @Mapping(source = "type", target = "type")
   @Mapping(source = "amount", target = "amount")
   @Mapping(source = "transactionDate", target = "transactionDate")
+  @Mapping(source = "clientId", target = "clientId")
   TransactionEntity toDbo(CreditTx domain);
 
   @InheritConfiguration

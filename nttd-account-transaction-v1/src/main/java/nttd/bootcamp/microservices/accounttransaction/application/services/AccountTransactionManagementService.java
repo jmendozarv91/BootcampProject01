@@ -20,6 +20,7 @@ import nttd.bootcamp.microservices.accounttransaction.infraestructure.adapter.ex
 import nttd.bootcamp.microservices.accounttransaction.infraestructure.adapter.exception.InsufficientFundsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -30,6 +31,13 @@ public class AccountTransactionManagementService implements AccountTransactionSe
   private final AccountTransactionResponseMapper accountTransactionResponseMapper;
   private final AccountTransactionRequestMapper accountTransactionRequestMapper;
   private final AccountServicePort accountServicePort;
+
+
+  @Override
+  public Flux<TransactionResponse> getAccountTransactions(String ownerId) {
+    return accountTransactionPersistencePort.getTransactionsByOwnerId(ownerId)
+        .map(accountTransactionResponseMapper::toDtoWithTransfer);
+  }
 
   @Override
   public Mono<TransactionResponse> depositTransaction(String accountId,
@@ -49,7 +57,7 @@ public class AccountTransactionManagementService implements AccountTransactionSe
         .flatMap(account -> {
           handleCommission(account);
           return updateAccountBalance(account, request.getAmount(), transactionType)
-              .flatMap(updatedAccount -> createTransaction(accountId, transactionType,
+              .flatMap(updatedAccount -> createTransaction(account, transactionType,
                   request.getAmount())
                   .flatMap(savedTransaction -> accountServicePort.modifyAccountBalance(accountId,
                           updatedAccount)
@@ -90,6 +98,7 @@ public class AccountTransactionManagementService implements AccountTransactionSe
                             .amount(request.getAmount())
                             .transactionDate(LocalDateTime.now())
                             .type(TransactionType.TRANSFER.getCode())
+                            .ownerId(fromAccount.getOwnerId())
                             .build()
                     ))
                     .map(accountTransactionResponseMapper::toTransferDto);
@@ -114,14 +123,15 @@ public class AccountTransactionManagementService implements AccountTransactionSe
   }
 
 
-  private Mono<Transaction> createTransaction(String accountId, TransactionType transactionType,
+  private Mono<Transaction> createTransaction(Account account, TransactionType transactionType,
       Double amount) {
     return accountTransactionPersistencePort.create(
         Transaction.builder()
             .transactionDate(LocalDateTime.now())
-            .accountId(accountId)
+            .accountId(account.getId())
             .amount(amount)
             .type(transactionType.getCode())
+            .ownerId(account.getOwnerId())
             .build());
   }
 
