@@ -4,7 +4,7 @@ info:
   description: Service to generate average balance reports and inquire balances in bank accounts and credit cards.
   version: "1.0"
 servers:
-  - url: localhost:8081/api/v1
+  - url: localhost:8075/api/v1
     description: Production server
 paths:
   /reports/average-balance-summary/{clientId}:

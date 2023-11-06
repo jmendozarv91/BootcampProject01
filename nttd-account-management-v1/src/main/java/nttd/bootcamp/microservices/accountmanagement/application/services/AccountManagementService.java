@@ -113,12 +113,19 @@ public class AccountManagementService implements AccountService {
           if (ClientType.PERSONAL.getDescription().equals(client.getClientType())) {
             if (ProfileType.VIP.getCode().equals(client.getProfileType())) {
               // Verificar que el monto de apertura es al menos 500
+              /*
+              * •	Cuenta de ahorro que requiere un monto mínimo de mensual 500
+              * */
               if (request.getBalance() < AccountConstant.MOUNT_MINIMUM_OPENING_AMOUNT_VIP) {
                 return Mono.error(new AccountException(HttpStatus.BAD_REQUEST,
                     String.format(AccountConstant.MINIMUM_OPENING_AMOUNT_VIP,
                         AccountConstant.MOUNT_MINIMUM_OPENING_AMOUNT_VIP)));
               }
               // Verificar que el cliente tiene una tarjeta de crédito
+              /*
+              * Adicionalmente, para solicitar este producto el cliente debe tener
+              * una tarjeta de crédito con el banco al momento de la creación de la cuenta.
+              * */
               return creditCardServicePort.hasCreditCard(client.getId())
                   .flatMap(hasCreditCard -> {
                     if (!hasCreditCard) {
@@ -164,10 +171,17 @@ public class AccountManagementService implements AccountService {
           }
           if (client.getProfileType() != null && client.getProfileType()
               .equals(ProfileType.PYME.getCode())) {
+            /*
+            * Como requisito debe de tener una cuenta corriente.
+             * */
             if (!AccountType.CURRENT_ACCOUNT.getCode().equals(request.getAccountType())) {
               return Mono.error(new AccountException(HttpStatus.BAD_REQUEST,
                   AccountConstant.PYME_CLIENTS_MUST_HAVE_CURRENT_ACCOUNT));
             }
+            /*
+            * Como requisito, el cliente debe tener una tarjeta de crédito
+            * con el banco al momento de la creación de la cuenta.
+            * */
             return creditCardServicePort.hasCreditCard(request.getOwnerId())
                 .flatMap(hasCreditCard -> {
                   if (!hasCreditCard) {
@@ -287,6 +301,9 @@ public class AccountManagementService implements AccountService {
 
   private Mono<AccountResponse> createAccount(AccountRequest request) {
     // Crea una cuenta.
+    /*
+    *Las cuentas bancarias tienen un monto mínimo de apertura que puede ser cero (0).
+    * */
     if (request.getBalance() < request.getMinimumOpeningAmount()) {
       return Mono.error(new AccountException(HttpStatus.BAD_REQUEST,
           AccountConstant.INITIAL_AMOUNT_LESS_THAN_MINIMUM));
