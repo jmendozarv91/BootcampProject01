@@ -1,0 +1,429 @@
+openapi: 3.0.0
+info:
+  title: Yanki Wallet Transactions API
+  version: "1.0.0"
+  description: API for managing transactions in the Yanki mobile wallet
+
+servers:
+  - url: https://localhost:8051/api
+    description: Production server
+
+paths:
+  /transactions:
+    post:
+      summary: Create a new transaction
+      operationId: createTransaction
+      tags:
+        - Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Bad request
+
+  /transactions/user/{userId}:
+    get:
+      summary: Get transactions by user ID
+      operationId: getTransactionsByUserId
+      tags:
+        - Transactions
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found
+
+  /transactions/{transactionId}:
+    get:
+      summary: Get transaction by ID
+      operationId: getTransactionById
+      tags:
+        - Transactions
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found
+
+  /transactions/{transactionId}/status:
+    patch:
+      summary: Update transaction status
+      operationId: updateTransactionStatus
+      tags:
+        - Transactions
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionStatusUpdateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found
+
+  /transactions/{transactionId}/cancel:
+    patch:
+      summary: Cancel a transaction
+      operationId: cancelTransaction
+      tags:
+        - Transactions
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found
+
+  /transactions/wallet-to-wallet:
+    post:
+      summary: Transfer from wallet to wallet
+      operationId: transferWalletToWallet
+      tags:
+        - Wallet Transfers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WalletTransferRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Bad request
+
+  /transactions/link-debit-card:
+    post:
+      summary: Link a debit card to a wallet
+      operationId: linkDebitCard
+      tags:
+        - Wallet Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkDebitCardRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebitCardLinkResponse'
+        '400':
+          description: Bad request
+
+  /transactions/debit-card-to-wallet/{walletId}:
+    post:
+      summary: Load wallet from a debit card
+      operationId: loadWalletFromDebitCard
+      tags:
+        - Wallet Management
+      parameters:
+        - name: walletId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoadWalletRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletBalanceResponse'
+        '400':
+          description: Bad request
+
+  /transactions/wallet-to-bank-account/{walletId}:
+    post:
+      summary: Credit wallet balance to bank account
+      operationId: creditWalletToBankAccount
+      tags:
+        - Wallet Management
+      parameters:
+        - name: walletId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditWalletRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletBalanceResponse'
+        '400':
+          description: Bad request
+
+  /transactions/wallet-balance/{walletId}:
+    get:
+      summary: Get wallet balance
+      operationId: getWalletBalance
+      tags:
+        - Wallet Management
+      parameters:
+        - name: walletId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletBalanceResponse'
+        '404':
+          description: Not found
+
+  /transactions/wallet/{walletId}:
+    get:
+      summary: List transactions for a wallet
+      operationId: listWalletTransactions
+      tags:
+        - Wallet Management
+      parameters:
+        - name: walletId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Not found
+
+components:
+  schemas:
+    TransactionRequest:
+      type: object
+      properties:
+        sourceWalletId:
+          type: string
+          description: Unique identifier for the source wallet.
+        targetWalletId:
+          type: string
+          description: Unique identifier for the target wallet.
+        amount:
+          type: number
+          format: double
+          description: The amount of money to be transferred.
+      required:
+        - sourceWalletId
+        - targetWalletId
+        - amount
+
+    TransactionResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: Unique identifier for the transaction.
+        sourceWalletId:
+          type: string
+          description: Unique identifier for the source wallet.
+        targetWalletId:
+          type: string
+          description: Unique identifier for the target wallet.
+        amount:
+          type: number
+          format: double
+          description: The amount of money transferred.
+        status:
+          type: string
+          description: Current status of the transaction.
+        timestamp:
+          type: string
+          format: date-time
+          description: The time at which the transaction was created.
+
+    TransactionStatusUpdateRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The new status of the transaction.
+      required:
+        - status
+
+    WalletTransferRequest:
+      type: object
+      properties:
+        sourceWalletId:
+          type: string
+          description: Unique identifier for the source wallet.
+        targetPhoneNumber:
+          type: string
+          description: Phone number associated with the target wallet.
+        amount:
+          type: number
+          format: double
+          description: The amount of money to be transferred.
+      required:
+        - sourceWalletId
+        - targetPhoneNumber
+        - amount
+
+    LinkDebitCardRequest:
+      type: object
+      properties:
+        walletId:
+          type: string
+          description: Unique identifier for the wallet to link.
+        debitCardNumber:
+          type: string
+          description: The debit card number to link to the wallet.
+        cardHolderName:
+          type: string
+          description: The name of the cardholder.
+        expiryDate:
+          type: string
+          format: date
+          description: The expiry date of the debit card.
+      required:
+        - walletId
+        - debitCardNumber
+        - cardHolderName
+        - expiryDate
+
+    DebitCardLinkResponse:
+      type: object
+      properties:
+        walletId:
+          type: string
+          description: Unique identifier for the wallet.
+        debitCardNumber:
+          type: string
+          description: Masked debit card number that is linked to the wallet.
+        message:
+          type: string
+          description: A message indicating the result of the operation.
+
+    LoadWalletRequest:
+      type: object
+      properties:
+        debitCardNumber:
+          type: string
+          description: The debit card number from which to load funds.
+        amount:
+          type: number
+          format: double
+          description: The amount of money to load into the wallet.
+      required:
+        - debitCardNumber
+        - amount
+
+    CreditWalletRequest:
+      type: object
+      properties:
+        walletId:
+          type: string
+          description: Unique identifier for the wallet to be credited.
+        bankAccountId:
+          type: string
+          description: The bank account number to which the funds will be credited.
+        amount:
+          type: number
+          format: double
+          description: The amount of money to credit from the wallet.
+      required:
+        - walletId
+        - bankAccountId
+        - amount
+
+    WalletBalanceResponse:
+      type: object
+      properties:
+        walletId:
+          type: string
+          description: Unique identifier for the wallet.
+        balance:
+          type: number
+          format: double
+          description: The current balance of the wallet.
+
+# Define the security schemes here
+security:
+  - bearerAuth: []
+
+# Define parameters, responses, and examples here

@@ -7,396 +7,885 @@
 	},
 	"item": [
 		{
-			"name": "Clients",
+			"name": "BANK",
 			"item": [
 				{
-					"name": "Save Client",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"RAUL\",\r\n    \"lastname\": \"MENDOZA SANCHEZ\",\r\n    \"phone\": \"11111111\",\r\n    \"identification\": \"4444444\",\r\n    \"email\": \"LROI@gmail.com\",\r\n    \"clientType\":\"01\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+					"name": "Clients",
+					"item": [
+						{
+							"name": "Save Client",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ZEZE\",\r\n    \"lastname\": \"ROMERO\",\r\n    \"phone\": \"933170441\",\r\n    \"identification\": \"25477740\",\r\n    \"email\": \"ZEZE@gmail.com\",\r\n    \"clientType\":\"personal\",\r\n    \"profileType\":\"other\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8087/api/v1/client/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8087",
+									"path": [
+										"api",
+										"v1",
+										"client",
+										"save"
+									]
+								},
+								"description": "HOLA MUNDO"
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8087/api/v1/management-client/save",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8087",
-							"path": [
-								"api",
-								"v1",
-								"management-client",
-								"save"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Search client by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8087/api/v1/management-client/652c6dba143e6f71296aeb37",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8087",
-							"path": [
-								"api",
-								"v1",
-								"management-client",
-								"652c6dba143e6f71296aeb37"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Client",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"RAMIRO\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Search client by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8087/api/v1/client/65455b6aca161e1ecffafcfd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8087",
+									"path": [
+										"api",
+										"v1",
+										"client",
+										"65455b6aca161e1ecffafcfd"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8087/api/v1/management-client/update/652c6dba143e6f71296aeb37",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8087",
-							"path": [
-								"api",
-								"v1",
-								"management-client",
-								"update",
-								"652c6dba143e6f71296aeb37"
-							]
+						{
+							"name": "Update Client",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"RAMIRO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8087/api/v1/client/update/652c6dba143e6f71296aeb37",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8087",
+									"path": [
+										"api",
+										"v1",
+										"client",
+										"update",
+										"652c6dba143e6f71296aeb37"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Client",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8087/api/v1/client/delete/d54c54bb-9112-41d2-bf28-846fe9440829",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8087",
+									"path": [
+										"api",
+										"v1",
+										"client",
+										"delete",
+										"d54c54bb-9112-41d2-bf28-846fe9440829"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Delete Client",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8087/api/v1/management-client/delete/d54c54bb-9112-41d2-bf28-846fe9440829",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8087",
-							"path": [
-								"api",
-								"v1",
-								"management-client",
-								"delete",
-								"d54c54bb-9112-41d2-bf28-846fe9440829"
-							]
+					"name": "Accounts",
+					"item": [
+						{
+							"name": "Save Account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accountNumber\": \"455444445457811555\",\r\n    \"accountType\": \"personal\",\r\n    \"balance\": 100.00,\r\n    \"maxMonthlyTransactions\": 10,\r\n    \"maintenanceFee\": 0.1,\r\n    \"ownerId\": \"65455c2fca161e1ecffafcfe\",\r\n    \"minimumOpeningAmount\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/api/v1/account/account-management/personal/afiliate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"v1",
+										"account",
+										"account-management",
+										"personal",
+										"afiliate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Account by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/api/v1/account/account-management/6541648f7275793fd2932a4b",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"v1",
+										"account",
+										"account-management",
+										"6541648f7275793fd2932a4b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Account Balance",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"balance\": 118.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/api/v1/account/account-management/modify-balance/65417b0f4b88525e98a3aa4a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"v1",
+										"account",
+										"account-management",
+										"modify-balance",
+										"65417b0f4b88525e98a3aa4a"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Transactons",
+					"item": [
+						{
+							"name": "Account Banks",
+							"item": [
+								{
+									"name": "deposit",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\": 111.10\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8085/api/v1/accounts/65455b8843bb632ab0b7a965/deposit",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8085",
+											"path": [
+												"api",
+												"v1",
+												"accounts",
+												"65455b8843bb632ab0b7a965",
+												"deposit"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "withdrawal",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\": 10.10\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8085/api/v1/accounts/65455b8843bb632ab0b7a965/withdrawal",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8085",
+											"path": [
+												"api",
+												"v1",
+												"accounts",
+												"65455b8843bb632ab0b7a965",
+												"withdrawal"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "transfer",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fromAccountId\":\"65455c4143bb632ab0b7a966\",\r\n    \"toAccountId\":\"65455b8843bb632ab0b7a965\",\r\n    \"amount\":200.0\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8085/api/v1/accounts/transfer",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8085",
+											"path": [
+												"api",
+												"v1",
+												"accounts",
+												"transfer"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get accounts transactions",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8085/api/v1/accounts/65455b6aca161e1ecffafcfd/transactions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8085",
+											"path": [
+												"api",
+												"v1",
+												"accounts",
+												"65455b6aca161e1ecffafcfd",
+												"transactions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Credit",
+							"item": [
+								{
+									"name": "payment",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\": 0.91\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8077/api/v1/credits/654564cf2e92eb172fae48d2/payment",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8077",
+											"path": [
+												"api",
+												"v1",
+												"credits",
+												"654564cf2e92eb172fae48d2",
+												"payment"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get credit transaction",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8077/api/v1/credits/65455b6aca161e1ecffafcfd/transactions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8077",
+											"path": [
+												"api",
+												"v1",
+												"credits",
+												"65455b6aca161e1ecffafcfd",
+												"transactions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Credit Card",
+							"item": [
+								{
+									"name": "/credit-card/consumption",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"amount\": 10.00\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8078/api/v1/credit-card/consumption?clientId=65455b6aca161e1ecffafcfd&creditCardId=6545686db381c50aa6d99ce8",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8078",
+											"path": [
+												"api",
+												"v1",
+												"credit-card",
+												"consumption"
+											],
+											"query": [
+												{
+													"key": "clientId",
+													"value": "65455b6aca161e1ecffafcfd"
+												},
+												{
+													"key": "creditCardId",
+													"value": "6545686db381c50aa6d99ce8"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/credit-card/{clientId}/transactions",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8078/api/v1/credit-card/65455b6aca161e1ecffafcfd/transactions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8078",
+											"path": [
+												"api",
+												"v1",
+												"credit-card",
+												"65455b6aca161e1ecffafcfd",
+												"transactions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Debit Card",
+							"item": []
+						},
+						{
+							"name": "payment credit",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\":68.50\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8085/api/v1/transaction-management/payment/652d64db96c48f152ba562f3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"v1",
+										"transaction-management",
+										"payment",
+										"652d64db96c48f152ba562f3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "credit-card",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"charger\",\r\n    \"amount\": 1000.00,\r\n    \"description\": \"ee\",\r\n    \"transactionDate\": \"2023-10-16T19:16:08.642Z\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8085/api/v1/transaction-management/transaction",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"api",
+										"v1",
+										"transaction-management",
+										"transaction"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Credits",
+					"item": [
+						{
+							"name": "Search Credit by creditId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8084/api/v1/credit-service/credits/65442ecf4e042016ba0485da",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"api",
+										"v1",
+										"credit-service",
+										"credits",
+										"65442ecf4e042016ba0485da"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Credit",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"clientId\": \"65455b6aca161e1ecffafcfd\",\r\n    \"amount\": 100.00,\r\n    \"interestRate\": 0.3,\r\n    \"pendingAmount\": 0.0,\r\n    \"creditType\": \"personal\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8084/api/v1/credit-service/credits",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"api",
+										"v1",
+										"credit-service",
+										"credits"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Balance",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pendingAmount\": 1000.0,\r\n    \"amount\":10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8084/api/v1/credit-service/credits/65442ecf4e042016ba0485da/refresh-balance",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"api",
+										"v1",
+										"credit-service",
+										"credits",
+										"65442ecf4e042016ba0485da",
+										"refresh-balance"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Creditcards",
+					"item": [
+						{
+							"name": "save credit card",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"clientId\":\"65455b6aca161e1ecffafcfd\",\r\n    \"cardId\": \"1111-1111-2222-313333\",\r\n    \"creditLimit\": 1000.0,\r\n    \"availableBalance\": 700.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/v1/credit-card/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"credit-card",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "consumption",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/credit-card/consumption?clientId=652c6dba143e6f71296aeb37&creditCardId=65334f1a448d87363c097523",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"credit-card",
+										"consumption"
+									],
+									"query": [
+										{
+											"key": "clientId",
+											"value": "652c6dba143e6f71296aeb37"
+										},
+										{
+											"key": "creditCardId",
+											"value": "65334f1a448d87363c097523"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Inquery Report Service",
+					"item": [
+						{
+							"name": "/reports/transactions/{clientId}",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8075/api/v1/reports/transactions/65455b6aca161e1ecffafcfd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8075",
+									"path": [
+										"api",
+										"v1",
+										"reports",
+										"transactions",
+										"65455b6aca161e1ecffafcfd"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "Accounts",
+			"name": "YANKI",
 			"item": [
 				{
-					"name": "Save Account",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"accountNumber\": \"12233434\",\r\n    \"balance\": 1000.00,\r\n    \"accountType\":\"002\",\r\n    \"maxMonthlyTransactions\": 10,\r\n    \"maintenanceFee\": 10.00,\r\n    \"ownerId\": \"652c6dfe143e6f71296aeb38\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "USER REGISTRATION",
+					"item": [
+						{
+							"name": "Wallet",
+							"item": [
+								{
+									"name": "Performs a transaction on the user's wallet",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"type\": \"debit\",\r\n  \"amount\": 1.48,\r\n  \"source_phone_number\": \"956150481\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8050/api/v1/users/654a5a052cd99a781067d1ab/wallet/transactions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8050",
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"654a5a052cd99a781067d1ab",
+												"wallet",
+												"transactions"
+											]
+										},
+										"description": "```\n/users/{user_id}/wallet\n\n ```"
+									},
+									"response": []
+								},
+								{
+									"name": "Gets wallet information for a user",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8050/api/v1/users/654a5a052cd99a781067d1ab/wallet",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8050",
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"654a5a052cd99a781067d1ab",
+												"wallet"
+											]
+										}
+									},
+									"response": []
 								}
-							}
+							]
 						},
-						"url": {
-							"raw": "http://localhost:8086/api/v1/account/business/afiliate",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"api",
-								"v1",
-								"account",
-								"business",
-								"afiliate"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Search Account by Id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8086/api/v1/account/652c968b8c3e5b7b9591a7ef",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"api",
-								"v1",
-								"account",
-								"652c968b8c3e5b7b9591a7ef"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Modify Account Balance",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"balance\": 18.00\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "users",
+							"item": [
+								{
+									"name": "Creates a new user and associated wallet.",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"document_type\": \"DNI\",\r\n  \"document_number\": \"47420257\",\r\n  \"phone_number\": \"956150481\",\r\n  \"imei\": \"520331099798423\",\r\n  \"email\": \"jose@hotmail.com\",\r\n  \"password\": \"123456\",\r\n  \"security_questions\": [\r\n    {\r\n      \"question\": \"Cual es tu plato favorito\",\r\n      \"answer\": \"ceviche\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8050/api/v1/users",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8050",
+											"path": [
+												"api",
+												"v1",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deletes a specific user and their associated wallet",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8050/api/v1/users/654a5922b7256563dd98bede",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8050",
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"654a5922b7256563dd98bede"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Gets a user's information.",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8050/api/v1/users/654a57c9a16572179b803131",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8050",
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"654a57c9a16572179b803131"
+											]
+										}
+									},
+									"response": []
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8086/api/v1/account/652c97dd8c3e5b7b9591a7f0",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"api",
-								"v1",
-								"account",
-								"652c97dd8c3e5b7b9591a7f0"
 							]
 						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Transactons",
-			"item": [
-				{
-					"name": "deposit",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"accountId\":\"652c968b8c3e5b7b9591a7ef\",\r\n    \"amount\":25.50\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8085/api/v1/transaction-management/deposit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"api",
-								"v1",
-								"transaction-management",
-								"deposit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "withdrawal",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"accountId\":\"652c968b8c3e5b7b9591a7ef\",\r\n    \"amount\":125.50\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8085/api/v1/transaction-management/withdrawal",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"api",
-								"v1",
-								"transaction-management",
-								"withdrawal"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "payment credit",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"amount\":68.50\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8085/api/v1/transaction-management/payment/652d64db96c48f152ba562f3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"api",
-								"v1",
-								"transaction-management",
-								"payment",
-								"652d64db96c48f152ba562f3"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Credits",
-			"item": [
-				{
-					"name": "Search Credit by creditId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8084/api/v1/credit-service/credits/652d64db96c48f152ba562f3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8084",
-							"path": [
-								"api",
-								"v1",
-								"credit-service",
-								"credits",
-								"652d64db96c48f152ba562f3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Save Credit",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"clientId\": \"652c6dfe143e6f71296aeb3\",\r\n    \"amount\": 100.00,\r\n    \"interestRate\": 0.3,\r\n    \"pendingAmount\": 0.0,\r\n    \"creditType\": \"01\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8084/api/v1/credit-service/credits",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8084",
-							"path": [
-								"api",
-								"v1",
-								"credit-service",
-								"credits"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Refresh Balance",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"pendingAmount\": 1000.0,\r\n    \"amount\":10\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8084/api/v1/credit-service/credits/652d64db96c48f152ba562f3/refresh-balance",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8084",
-							"path": [
-								"api",
-								"v1",
-								"credit-service",
-								"credits",
-								"652d64db96c48f152ba562f3",
-								"refresh-balance"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
