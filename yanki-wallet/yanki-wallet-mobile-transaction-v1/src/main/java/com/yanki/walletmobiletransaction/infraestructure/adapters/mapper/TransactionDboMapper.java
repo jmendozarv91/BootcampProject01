@@ -9,6 +9,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface TransactionDboMapper {
 
+
+  @Mapping(source = "id", target = "id")
+  TransactionEntity toDboStatus(Transaction transaction);
+
+
   @Mapping(source = "id", target = "id")
   @Mapping(source = "type", target = "type")
   @Mapping(source = "amount", target = "amount")

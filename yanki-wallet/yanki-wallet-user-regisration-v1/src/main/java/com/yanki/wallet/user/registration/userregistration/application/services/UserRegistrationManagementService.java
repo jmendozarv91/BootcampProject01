@@ -82,10 +82,10 @@ public class UserRegistrationManagementService implements UserRegistrationServic
             user.setWallet(Wallet.builder().id(UUID.randomUUID().toString()).balance(0.0).build());
           }
 
-          if (TypeEnum.CREDIT.equals(walletTransaction.getType())) {
+          if (TypeEnum.CREDIT.getValue().equals(walletTransaction.getType().getValue())) {
             user.getWallet().setBalance(
                 user.getWallet().getBalance() + walletTransaction.getAmount().doubleValue());
-          } else if (TypeEnum.DEBIT.equals(walletTransaction.getType())) {
+          } else if (TypeEnum.DEBIT.getValue().equals(walletTransaction.getType().getValue())) {
             double newBalance =
                 user.getWallet().getBalance() - walletTransaction.getAmount().doubleValue();
             if (newBalance < 0) {

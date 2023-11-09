@@ -92,7 +92,7 @@ public class AccountManagementService implements AccountService {
     return accountPersistencePort.getById(id)
         .flatMap(account -> accountPersistencePort.deleteById(account.getId()))
         .switchIfEmpty(Mono.error(new AccountException(HttpStatus.BAD_REQUEST,
-            String.format(AccountConstant.CURRENT_TASK_NOT_ALLOW_TO_DELETE, id))))
+            String.format(AccountConstant.CURRENT_TASK_NOT_ALLOW_TO_DELETE, id)))  )
         .onErrorResume(throwable ->
             Mono.error(new AccountException(HttpStatus.BAD_REQUEST,
                 String.format(AccountConstant.CURRENT_OPERATION_FAILED, id)))

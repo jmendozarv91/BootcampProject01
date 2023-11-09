@@ -2,6 +2,8 @@ package com.yanki.walletmobiletransaction.infraestructure.adapters.repository;
 
 import com.yanki.walletmobiletransaction.domain.model.Transaction;
 import com.yanki.walletmobiletransaction.domain.port.WalletTransactionPersistencePort;
+import com.yanki.walletmobiletransaction.infraestructure.adapters.entity.TransactionEntity;
+import com.yanki.walletmobiletransaction.infraestructure.adapters.entity.TransactionStatus;
 import com.yanki.walletmobiletransaction.infraestructure.adapters.mapper.TransactionDboMapper;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,13 @@ public class TransactionRepositoryAdapter implements WalletTransactionPersistenc
 
   private final TransactionRepository transactionRepository;
   private final TransactionDboMapper transactionDboMapper;
+
+  @Override
+  public Mono<Void> cancelTransaction(Transaction transaction) {
+    TransactionEntity transactionEntity = transactionDboMapper.toDboStatus(transaction);
+    transactionEntity.setStatus(TransactionStatus.CANCELED.name());
+    return transactionRepository.save(transactionEntity).then();
+  }
 
   @Override
   public Mono<Transaction> create(Transaction model) {
@@ -54,4 +63,6 @@ public class TransactionRepositoryAdapter implements WalletTransactionPersistenc
     return transactionRepository.findAllById(ids)
         .map(transactionDboMapper::toDomain);
   }
+
+
 }

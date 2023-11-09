@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-11-08T14:02:36.846Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="ngWddKvhEld130H4X23K" version="22.0.8" type="device">
+<mxfile host="app.diagrams.net" modified="2023-11-08T14:38:56.327Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="eRSP6WJk7nO7VEH0pNav" version="22.0.8" type="device">
   <diagram name="Página-1" id="-X11c9aHxKl_7VHZbHps">
-    <mxGraphModel dx="1702" dy="1924" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2024" dy="1114" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -352,6 +352,12 @@
         <mxCell id="GaiomH8NbZP9esOnhPdk-37" value="inquiry-service-report-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
           <mxGeometry x="788" y="370" width="72" height="52" as="geometry" />
         </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="GaiomH8NbZP9esOnhPdk-50" source="LDjs_fQ_YrKKM8JEfmCH-16" target="GaiomH8NbZP9esOnhPdk-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-16" value="MAP-CREDIT-CARD-TRANSACTION&lt;br&gt;MAP-CREDIT-TRANSACTION&lt;br&gt;MAP-DEBIT-CARD-TRANSACTION&lt;br&gt;MAP-ACCOUNT-TRANSACTIONS" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
+          <mxGeometry x="950" y="270" width="51.19" height="43" as="geometry" />
+        </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="GaiomH8NbZP9esOnhPdk-52" target="GaiomH8NbZP9esOnhPdk-12" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -361,38 +367,69 @@
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-2" target="LDjs_fQ_YrKKM8JEfmCH-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-2" target="LDjs_fQ_YrKKM8JEfmCH-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1280" y="1881" />
+              <mxPoint x="1280" y="2030" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-7" value="SUSCRIBE" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4dKb2mm8DSPColC5nP2_-2">
+          <mxGeometry x="-0.1667" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-2" value="user-registration-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1310" y="1861" width="55.38" height="40" as="geometry" />
+          <mxGeometry x="1287.31" y="1861" width="55.38" height="40" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-6" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-4" target="GaiomH8NbZP9esOnhPdk-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-3" target="LDjs_fQ_YrKKM8JEfmCH-4" edge="1">
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-3" target="4dKb2mm8DSPColC5nP2_-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-8" value="PUBLISHER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LDjs_fQ_YrKKM8JEfmCH-11">
+          <mxGeometry x="0.0512" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-3" value="mobile-wallet-transaction-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1654" y="2000" width="72" height="52" as="geometry" />
+          <mxGeometry x="1582" y="1980" width="72" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-10" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-4" target="4dKb2mm8DSPColC5nP2_-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-11" value="SUSCRIBER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4dKb2mm8DSPColC5nP2_-10">
+          <mxGeometry x="0.3187" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-4" value="debit-card-linking-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1840" y="1855" width="72" height="52" as="geometry" />
+          <mxGeometry x="1850" y="1849" width="72" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-5" target="LDjs_fQ_YrKKM8JEfmCH-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-5" value="cache-user" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;" parent="1" vertex="1">
-          <mxGeometry x="1447.4099999999999" y="1920" width="51.19" height="43" as="geometry" />
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-5" value="MAP_USER_REGISTRATION" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;" parent="1" vertex="1">
+          <mxGeometry x="1469.9999999999998" y="1907" width="51.19" height="43" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-7" value="users" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1441" y="1810" width="64" height="64" as="geometry" />
+          <mxGeometry x="1470" y="1810" width="64" height="64" as="geometry" />
         </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-9" value="Kafka&#xa;" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.icon-icons.com/icons2/2248/PNG/512/apache_kafka_icon_138937.png;" parent="1" vertex="1">
-          <mxGeometry x="1670" y="1861" width="40" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-16" value="cache-user" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;" parent="1" vertex="1">
-          <mxGeometry x="1810" y="2040" width="51.19" height="43" as="geometry" />
-        </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.217;entryY=1.05;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-3" target="LDjs_fQ_YrKKM8JEfmCH-2" edge="1">
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-3" target="LDjs_fQ_YrKKM8JEfmCH-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-6" value="PUBLISHER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LDjs_fQ_YrKKM8JEfmCH-19">
+          <mxGeometry x="-0.2581" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-9" value="EVENT_CANCEL_WALLET_STATUS" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.icon-icons.com/icons2/2248/PNG/512/apache_kafka_icon_138937.png;" parent="1" vertex="1">
+          <mxGeometry x="1365.38" y="2000" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-3" value="LINK-DEBIT-CARD" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.icon-icons.com/icons2/2248/PNG/512/apache_kafka_icon_138937.png;" vertex="1" parent="1">
+          <mxGeometry x="1710" y="1935" width="40" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

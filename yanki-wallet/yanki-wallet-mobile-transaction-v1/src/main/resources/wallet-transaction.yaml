@@ -5,7 +5,7 @@ info:
   description: API for managing transactions in the Yanki mobile wallet
 
 servers:
-  - url: https://localhost:8051/api
+  - url: https://localhost:8051/api/v1
     description: Production server
 
 paths:

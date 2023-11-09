@@ -10,4 +10,11 @@ spring:
     consumer:
       bootstrap-servers: localhost:9092
       group-id: yanki-transactions-group
-      key-deserializer: org
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    bootstrap-servers: localhost:9092
+
+logging:
+  level:
+    org:
+      apache:
+        kafka: DEBUG

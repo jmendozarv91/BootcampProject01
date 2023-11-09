@@ -1,4 +1,4 @@
-package com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.exception;
+package com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.events.exception;
 
 public class UserTargetNotFoundException extends RuntimeException {
 

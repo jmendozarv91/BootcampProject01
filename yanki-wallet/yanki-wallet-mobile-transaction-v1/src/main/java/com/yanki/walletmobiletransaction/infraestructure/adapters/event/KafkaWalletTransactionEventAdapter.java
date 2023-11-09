@@ -5,97 +5,102 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yanki.walletmobiletransaction.application.events.TransactionEvent;
 import com.yanki.walletmobiletransaction.application.events.TransactionEvent.EventType;
 import com.yanki.walletmobiletransaction.domain.port.WalletTransactionEventPort;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Slf4j
-@Service
 @AllArgsConstructor
+@Service
 public class KafkaWalletTransactionEventAdapter implements WalletTransactionEventPort {
 
+  private final String TRANSACTION_EVENTS_TOPIC = "transaction-events";
 
-  private static final String TRANSACTION_EVENTS_TOPIC = "transaction-events";
-  private final KafkaProducer<String, String> producer;
+  private final KafkaTemplate<String, String> kafkaTemplate;
   private final ObjectMapper objectMapper;
 
   @Override
-  public void publishTransactionEvent(TransactionEvent transactionEvent) {
-    send(TRANSACTION_EVENTS_TOPIC, transactionEvent.getTransactionId(), transactionEvent);
+  public Mono<Void> publishTransactionEvent(TransactionEvent transactionEvent) {
+    return send(TRANSACTION_EVENTS_TOPIC, transactionEvent.getTransactionId(), transactionEvent);
   }
 
   @Override
-  public void publishTransactionCanceledEvent(String transactionId) {
-    send(TRANSACTION_EVENTS_TOPIC, transactionId, TransactionEvent.builder()
+  public Mono<Void> publishTransactionCanceledEvent(String transactionId) {
+    TransactionEvent event = TransactionEvent.builder()
         .transactionId(transactionId)
         .eventType(EventType.TRANSACTION_CANCELED)
-        .build());
+        .build();
+    return send(TRANSACTION_EVENTS_TOPIC, transactionId, event);
   }
 
   @Override
-  public void publishTransactionStatusUpdatedEvent(String transactionId, String status) {
-
+  public Mono<Void> publishTransactionStatusUpdatedEvent(String transactionId, String status) {
     TransactionEvent event = TransactionEvent.builder()
         .transactionId(transactionId)
         .status(status)
         .eventType(EventType.TRANSACTION_STATUS_UPDATED)
         .build();
-
-    send(TRANSACTION_EVENTS_TOPIC, transactionId, event);
+    return send(TRANSACTION_EVENTS_TOPIC, transactionId, event);
   }
 
+
   @Override
-  public void publishWalletToWalletTransferEvent(String sourceWalletId, String targetWalletId,
-      double amount) {
+  public Mono<Void> publishWalletToWalletTransferEvent(String sourceWalletId, String targetPhoneNumber, double amount) {
     TransactionEvent event = TransactionEvent.builder()
         .sourceWalletId(sourceWalletId)
-        .targetWalletId(targetWalletId)
+        .targetPhoneNumber(targetPhoneNumber)
         .amount(amount)
         .eventType(EventType.WALLET_TO_WALLET_TRANSFER)
         .build();
-    send(TRANSACTION_EVENTS_TOPIC, sourceWalletId, event);
+    log.info("event -->" + event);
+    return send(TRANSACTION_EVENTS_TOPIC, sourceWalletId, event);
   }
 
   @Override
-  public void publishDebitCardLinkedEvent(String walletId, String debitCardNumber) {
+  public Mono<Void> publishDebitCardLinkedEvent(String walletId, String debitCardNumber) {
     TransactionEvent event = TransactionEvent.builder()
         .sourceWalletId(walletId)
         .debitCardNumber(debitCardNumber)
         .eventType(EventType.DEBIT_CARD_LINKED)
         .build();
-    send(TRANSACTION_EVENTS_TOPIC, walletId, event);
+    return send(TRANSACTION_EVENTS_TOPIC, walletId, event);
   }
 
   @Override
-  public void publishLoadWalletFromDebitCardEvent(String walletId, double amount) {
+  public Mono<Void> publishLoadWalletFromDebitCardEvent(String walletId, double amount) {
     TransactionEvent event = TransactionEvent.builder()
         .sourceWalletId(walletId)
         .amount(amount)
         .eventType(EventType.LOAD_WALLET_FROM_DEBIT_CARD)
         .build();
-
-    send(TRANSACTION_EVENTS_TOPIC, walletId, event);
+    return send(TRANSACTION_EVENTS_TOPIC, walletId, event);
   }
 
   @Override
-  public void publishCreditWalletToBankAccountEvent(String walletId, String bankAccountId,
+  public Mono<Void> publishCreditWalletToBankAccountEvent(String walletId, String bankAccountId,
       double amount) {
     TransactionEvent event = TransactionEvent.builder()
         .sourceWalletId(walletId)
         .bankAccountId(bankAccountId)
         .eventType(EventType.CREDIT_WALLET_TO_BANK_ACCOUNT)
         .build();
-    send(TRANSACTION_EVENTS_TOPIC, walletId, event);
+    return send(TRANSACTION_EVENTS_TOPIC, walletId, event);
   }
 
-  private void send(String topic, String key, Object value) {
+  private Mono<Void> send(String topic, String key, TransactionEvent value) {
     try {
       String message = objectMapper.writeValueAsString(value);
-      producer.send(new ProducerRecord<>(topic, key, message));
+      log.info("xxxx -->" + message);
+      CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, key, message)
+          .completable();
+      return Mono.fromFuture(() -> future).then();
     } catch (JsonProcessingException e) {
       log.error("Could not serialize event object to JSON", e);
+      return Mono.error(e);
     }
   }
 

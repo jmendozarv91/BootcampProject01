@@ -20,6 +20,7 @@
     <version.lombok>1.18.24</version.lombok>
     <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
     <package.path>com.yanki.walletmobiletransaction</package.path>
+    <reactor.kafka.version>1.2.2.RELEASE</reactor.kafka.version>
   </properties>
   <dependencies>
     <dependency>
@@ -95,23 +96,24 @@
       <version>3.0.0</version>
     </dependency>
 
-    <!-- Spring Kafka -->
+    <!-- Dependencias de Jackson -->
+<!--    <dependency>-->
+<!--      <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--      <artifactId>jackson-core</artifactId>-->
+<!--      <version>2.13.0</version> &lt;!&ndash; Asegúrate de usar una versión compatible &ndash;&gt;-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--      <artifactId>jackson-databind</artifactId>-->
+<!--      <version>2.13.0</version> &lt;!&ndash; Asegúrate de usar una versión compatible &ndash;&gt;-->
+<!--    </dependency>-->
+
+    <!-- Dependencias de Spring Kafka -->
     <dependency>
       <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka</artifactId>
+      <version>2.8.1</version> <!-- Asegúrate de usar una versión compatible -->
     </dependency>
-    <!-- Reactor Kafka -->
-    <dependency>
-      <groupId>io.projectreactor.kafka</groupId>
-      <artifactId>reactor-kafka</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-core</artifactId>
-      <version>3.4.15</version>
-    </dependency>
-
 
   </dependencies>
 

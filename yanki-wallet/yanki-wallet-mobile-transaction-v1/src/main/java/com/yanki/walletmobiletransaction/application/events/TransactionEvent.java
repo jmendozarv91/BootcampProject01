@@ -1,6 +1,7 @@
 package com.yanki.walletmobiletransaction.application.events;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,13 +14,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TransactionEvent {
+public class TransactionEvent implements Serializable {
 
   private String transactionId;
   private EventType eventType;
   private String status;
   private String sourceWalletId;
   private String targetWalletId;
+  private String targetPhoneNumber;
   private double amount;
   private String debitCardNumber;
   private String bankAccountId;

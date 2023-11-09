@@ -25,15 +25,29 @@ public class WalletTransactionController implements TransactionsApi {
   private final WalletTransactionManagementService walletTransactionManagementService;
 
   @Override
+  public Mono<ResponseEntity<TransactionResponse>> transferWalletToWallet(
+      Mono<WalletTransferRequest> walletTransferRequest, ServerWebExchange exchange) {
+    return walletTransferRequest.flatMap(request ->
+            walletTransactionManagementService.transferWalletToWallet(request)
+                .map(ResponseEntity::ok))
+        .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
+  }
+
+  @Override
   public Mono<ResponseEntity<TransactionResponse>> cancelTransaction(String transactionId,
       ServerWebExchange exchange) {
-    return null;
+    return walletTransactionManagementService.cancelTransaction(transactionId)
+        .map(ResponseEntity::ok)
+        .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
   @Override
   public Mono<ResponseEntity<TransactionResponse>> createTransaction(
       Mono<TransactionRequest> transactionRequest, ServerWebExchange exchange) {
-    return null;
+    return transactionRequest.flatMap(request ->
+            walletTransactionManagementService.createTransaction(request)
+                .map(ResponseEntity::ok))
+        .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
   }
 
   @Override
@@ -45,7 +59,9 @@ public class WalletTransactionController implements TransactionsApi {
   @Override
   public Mono<ResponseEntity<TransactionResponse>> getTransactionById(String transactionId,
       ServerWebExchange exchange) {
-    return null;
+    return walletTransactionManagementService.getTransactionById(transactionId)
+        .map(ResponseEntity::ok)
+        .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
   @Override
@@ -78,11 +94,7 @@ public class WalletTransactionController implements TransactionsApi {
     return null;
   }
 
-  @Override
-  public Mono<ResponseEntity<TransactionResponse>> transferWalletToWallet(
-      Mono<WalletTransferRequest> walletTransferRequest, ServerWebExchange exchange) {
-    return null;
-  }
+
 
   @Override
   public Mono<ResponseEntity<TransactionResponse>> updateTransactionStatus(String transactionId,
