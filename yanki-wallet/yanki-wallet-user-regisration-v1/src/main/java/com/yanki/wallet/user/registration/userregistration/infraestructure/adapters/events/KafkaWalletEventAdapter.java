@@ -5,9 +5,11 @@ import com.yanki.wallet.user.registration.userregistration.application.event.Tra
 import com.yanki.wallet.user.registration.userregistration.domain.port.WalletTxEventPort;
 import com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.entity.UserEntity;
 import com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.events.exception.InsufficientBalanceException;
+import com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.events.exception.InvalidAmountException;
 import com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.events.exception.UserSourceNotFoundException;
 import com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.events.exception.UserTargetNotFoundException;
 import com.yanki.wallet.user.registration.userregistration.infraestructure.adapters.repository.UserRegistrationRepository;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -49,9 +51,15 @@ public class KafkaWalletEventAdapter implements WalletTxEventPort {
     log.info("amount: " + event.getAmount());
 
     // Obtener el usuario de origen
-    UserEntity sourceUser = userRegistrationRepository.findByWalletId(event.getSourceWalletId()).block();
+    UserEntity sourceUser = userRegistrationRepository.findByWalletId(event.getSourceWalletId())
+        .block();
     if (sourceUser == null) {
       throw new UserSourceNotFoundException("User Source not found!");
+    }
+
+    // Verificar que el monto a transferir sea mayor o igual a 1
+    if (event.getAmount() < 1) {
+      throw new InvalidAmountException("Invalid amount!");
     }
 
     // Obtener el usuario de destino
@@ -62,7 +70,8 @@ public class KafkaWalletEventAdapter implements WalletTxEventPort {
     }
 
     // Verificar que el saldo de la billetera de origen sea suficiente para realizar la transferencia
-    if (sourceUser.getWallet().getBalance() < event.getAmount()) {
+    if (!sourceUser.getId().equals(targetUser.getId()) && (sourceUser.getWallet().getBalance()
+        < event.getAmount())) {
       throw new InsufficientBalanceException("Insufficient balance!");
     }
 
@@ -74,10 +83,11 @@ public class KafkaWalletEventAdapter implements WalletTxEventPort {
     userRegistrationRepository.save(targetUser).block();
 
     // Actualizar el saldo de la billetera de origen
-    sourceUser.getWallet().setBalance(sourceUser.getWallet().getBalance() - event.getAmount());
-
-    // Guardar la información de la billetera de origen en la base de datos
-    userRegistrationRepository.save(sourceUser).block();
+    if (!Objects.equals(targetUser.getWallet().getId(), sourceUser.getWallet().getId())) {
+      sourceUser.getWallet().setBalance(sourceUser.getWallet().getBalance() - event.getAmount());
+      // Guardar la información de la billetera de origen en la base de datos
+      userRegistrationRepository.save(sourceUser).block();
+    }
 
     log.info("Wallet to Wallet Transfer Event published successfully.");
 
