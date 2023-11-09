@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2023-11-08T14:38:56.327Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="eRSP6WJk7nO7VEH0pNav" version="22.0.8" type="device">
+<mxfile host="app.diagrams.net" modified="2023-11-09T16:20:10.180Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="p1k1M-FZw5hpENJBeq8d" version="22.1.0" type="device">
   <diagram name="Página-1" id="-X11c9aHxKl_7VHZbHps">
-    <mxGraphModel dx="2024" dy="1114" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1639" dy="736" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-14" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1250" y="1800" width="796" height="310" as="geometry" />
+          <mxGeometry x="1100" y="1810" width="800" height="470" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-52" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
           <mxGeometry x="1170" y="1130" width="462" height="170" as="geometry" />
@@ -235,7 +235,7 @@
         <mxCell id="GaiomH8NbZP9esOnhPdk-10" value="customer-management-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="1433" y="1166" width="72" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="GaiomH8NbZP9esOnhPdk-11" value="clients" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="1" vertex="1">
+        <mxCell id="GaiomH8NbZP9esOnhPdk-11" value="banknttda/clients" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="1" vertex="1">
           <mxGeometry x="1283" y="1160" width="64" height="64" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-50" value="" style="group" parent="1" vertex="1" connectable="0">
@@ -254,40 +254,40 @@
           <mxGeometry width="390" height="254" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-1" value="credit-card-service-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="270" y="24" width="72" height="52" as="geometry" />
+          <mxGeometry x="280" y="32" width="49.85" height="36" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-2" value="creditcards" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="60" y="18" width="64" height="64" as="geometry" />
+          <mxGeometry x="90" y="24" width="52" height="52" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="GaiomH8NbZP9esOnhPdk-50" source="GaiomH8NbZP9esOnhPdk-1" target="GaiomH8NbZP9esOnhPdk-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-3" value="credit-service-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="680" y="18" width="72" height="52" as="geometry" />
+          <mxGeometry x="680" y="27" width="44.31" height="32" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-4" value="credits" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="430" y="16" width="64" height="64" as="geometry" />
+          <mxGeometry x="450" y="24" width="44" height="44" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-5" value="debit-card-service-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="1130" y="24" width="72" height="52" as="geometry" />
+          <mxGeometry x="1120" y="30" width="49.85" height="36" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-6" value="debitcards" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="850" y="24" width="64" height="64" as="geometry" />
+          <mxGeometry x="870" y="30" width="46" height="46" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-12" value="account-management-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="1596" y="24" width="72" height="52" as="geometry" />
+          <mxGeometry x="1580" y="27" width="63.7" height="46" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-13" value="accounts" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="1320" y="18" width="64" height="64" as="geometry" />
+          <mxGeometry x="1326" y="27" width="52" height="52" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="GaiomH8NbZP9esOnhPdk-50" source="GaiomH8NbZP9esOnhPdk-14" target="GaiomH8NbZP9esOnhPdk-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-14" value="credit-card-transaction-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="190" y="164" width="72" height="52" as="geometry" />
+          <mxGeometry x="210" y="167.5" width="49.85" height="36" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-15" value="creditcard_transactions" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="50" y="158" width="64" height="64" as="geometry" />
+          <mxGeometry x="80" y="164.5" width="42" height="42" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-19" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.969;entryY=0.469;entryDx=0;entryDy=0;entryPerimeter=0;" parent="GaiomH8NbZP9esOnhPdk-50" source="GaiomH8NbZP9esOnhPdk-3" target="GaiomH8NbZP9esOnhPdk-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -296,10 +296,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-20" value="credit-transaction-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="590" y="158" width="74.77" height="54" as="geometry" />
+          <mxGeometry x="602" y="164" width="58.15" height="42" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-22" value="credit_transactions" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="430" y="153" width="64" height="64" as="geometry" />
+          <mxGeometry x="460" y="161.5" width="47" height="47" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="GaiomH8NbZP9esOnhPdk-50" source="GaiomH8NbZP9esOnhPdk-14" target="GaiomH8NbZP9esOnhPdk-15" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -311,13 +311,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-26" value="debit-card-transaction-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="1032" y="159" width="72" height="52" as="geometry" />
+          <mxGeometry x="1031" y="170" width="42.92" height="31" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="GaiomH8NbZP9esOnhPdk-50" source="GaiomH8NbZP9esOnhPdk-20" target="GaiomH8NbZP9esOnhPdk-22" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-27" value="debitcard_transactions" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="850" y="153" width="64" height="64" as="geometry" />
+          <mxGeometry x="863.5" y="166.5" width="37" height="37" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="GaiomH8NbZP9esOnhPdk-50" source="GaiomH8NbZP9esOnhPdk-26" target="GaiomH8NbZP9esOnhPdk-27" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -326,10 +326,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-31" value="account-transaction-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="1500" y="147" width="72" height="52" as="geometry" />
+          <mxGeometry x="1480" y="150" width="59.54" height="43" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-32" value="account_transactions" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
-          <mxGeometry x="1320" y="147" width="64" height="64" as="geometry" />
+          <mxGeometry x="1330.5" y="156" width="43" height="43" as="geometry" />
         </mxCell>
         <mxCell id="GaiomH8NbZP9esOnhPdk-33" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.391;entryDx=0;entryDy=0;entryPerimeter=0;" parent="GaiomH8NbZP9esOnhPdk-50" source="GaiomH8NbZP9esOnhPdk-31" target="GaiomH8NbZP9esOnhPdk-32" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -352,7 +352,7 @@
         <mxCell id="GaiomH8NbZP9esOnhPdk-37" value="inquiry-service-report-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
           <mxGeometry x="788" y="370" width="72" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="GaiomH8NbZP9esOnhPdk-50" source="LDjs_fQ_YrKKM8JEfmCH-16" target="GaiomH8NbZP9esOnhPdk-37">
+        <mxCell id="4dKb2mm8DSPColC5nP2_-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="GaiomH8NbZP9esOnhPdk-50" source="LDjs_fQ_YrKKM8JEfmCH-16" target="GaiomH8NbZP9esOnhPdk-37" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-16" value="MAP-CREDIT-CARD-TRANSACTION&lt;br&gt;MAP-CREDIT-TRANSACTION&lt;br&gt;MAP-DEBIT-CARD-TRANSACTION&lt;br&gt;MAP-ACCOUNT-TRANSACTIONS" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;" parent="GaiomH8NbZP9esOnhPdk-50" vertex="1">
@@ -367,21 +367,16 @@
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-2" target="LDjs_fQ_YrKKM8JEfmCH-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-2" target="LDjs_fQ_YrKKM8JEfmCH-9">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1280" y="1881" />
-              <mxPoint x="1280" y="2030" />
-            </Array>
-          </mxGeometry>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-2" target="LDjs_fQ_YrKKM8JEfmCH-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-7" value="SUSCRIBE" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4dKb2mm8DSPColC5nP2_-2">
+        <mxCell id="4dKb2mm8DSPColC5nP2_-7" value="SUSCRIBED" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBorderColor=default;" parent="4dKb2mm8DSPColC5nP2_-2" vertex="1" connectable="0">
           <mxGeometry x="-0.1667" y="1" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-2" value="user-registration-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1287.31" y="1861" width="55.38" height="40" as="geometry" />
+          <mxGeometry x="1187.31" y="1895" width="55.38" height="40" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-6" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-4" target="GaiomH8NbZP9esOnhPdk-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -389,47 +384,59 @@
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-3" target="4dKb2mm8DSPColC5nP2_-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-8" value="PUBLISHER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LDjs_fQ_YrKKM8JEfmCH-11">
+        <mxCell id="4dKb2mm8DSPColC5nP2_-8" value="PUBLISHER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=default;labelBackgroundColor=none;labelBorderColor=default;" parent="LDjs_fQ_YrKKM8JEfmCH-11" vertex="1" connectable="0">
           <mxGeometry x="0.0512" y="-2" relative="1" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint y="10" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-3" value="mobile-wallet-transaction-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1582" y="1980" width="72" height="52" as="geometry" />
-        </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-10" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-4" target="4dKb2mm8DSPColC5nP2_-3">
+        <mxCell id="t3Opo-hzOX2Vc04e_Ezt-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-3" target="t3Opo-hzOX2Vc04e_Ezt-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-11" value="SUSCRIBER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4dKb2mm8DSPColC5nP2_-10">
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-3" value="mobile-wallet-transaction-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="1444" y="2088" width="72" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-10" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-4" target="4dKb2mm8DSPColC5nP2_-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKb2mm8DSPColC5nP2_-11" value="SUSCRIBED" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBorderColor=default;labelBackgroundColor=default;" parent="4dKb2mm8DSPColC5nP2_-10" vertex="1" connectable="0">
           <mxGeometry x="0.3187" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-4" value="debit-card-linking-v1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Cloud_Services_Classic.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1850" y="1849" width="72" height="52" as="geometry" />
+          <mxGeometry x="1782" y="1884" width="72" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-5" target="LDjs_fQ_YrKKM8JEfmCH-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-5" value="MAP_USER_REGISTRATION" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Cache_Redis_Product.svg;" parent="1" vertex="1">
-          <mxGeometry x="1469.9999999999998" y="1907" width="51.19" height="43" as="geometry" />
+          <mxGeometry x="1197.14" y="1820" width="35.71" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-7" value="users" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1470" y="1810" width="64" height="64" as="geometry" />
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-7" value="yanki/users" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="1322" y="1891.5" width="47" height="47" as="geometry" />
         </mxCell>
         <mxCell id="LDjs_fQ_YrKKM8JEfmCH-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="LDjs_fQ_YrKKM8JEfmCH-3" target="LDjs_fQ_YrKKM8JEfmCH-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-6" value="PUBLISHER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LDjs_fQ_YrKKM8JEfmCH-19">
+        <mxCell id="4dKb2mm8DSPColC5nP2_-6" value="PUBLISHER" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBorderColor=default;" parent="LDjs_fQ_YrKKM8JEfmCH-19" vertex="1" connectable="0">
           <mxGeometry x="-0.2581" y="4" relative="1" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint y="-22" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-9" value="EVENT_CANCEL_WALLET_STATUS" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.icon-icons.com/icons2/2248/PNG/512/apache_kafka_icon_138937.png;" parent="1" vertex="1">
-          <mxGeometry x="1365.38" y="2000" width="40" height="40" as="geometry" />
+        <mxCell id="LDjs_fQ_YrKKM8JEfmCH-9" value="EVENT_WALLET_TO_WALLET_TRANSFER" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.icon-icons.com/icons2/2248/PNG/512/apache_kafka_icon_138937.png;" parent="1" vertex="1">
+          <mxGeometry x="1226.19" y="2082" width="40" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="4dKb2mm8DSPColC5nP2_-3" value="LINK-DEBIT-CARD" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.icon-icons.com/icons2/2248/PNG/512/apache_kafka_icon_138937.png;" vertex="1" parent="1">
-          <mxGeometry x="1710" y="1935" width="40" height="40" as="geometry" />
+        <mxCell id="4dKb2mm8DSPColC5nP2_-3" value="EVENT_LINK_DEBIT_CARD" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.icon-icons.com/icons2/2248/PNG/512/apache_kafka_icon_138937.png;" parent="1" vertex="1">
+          <mxGeometry x="1660" y="2030" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="t3Opo-hzOX2Vc04e_Ezt-1" value="yanki/wallet_transactions" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1476" y="2190" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="t3Opo-hzOX2Vc04e_Ezt-4" value="topic/transaction-events" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=#CCE5FF;" vertex="1" parent="1">
+          <mxGeometry x="1242.75" y="2140" width="144.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="t3Opo-hzOX2Vc04e_Ezt-5" value="topic/link-debit-events" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;labelBackgroundColor=#E6FFCC;" vertex="1" parent="1">
+          <mxGeometry x="1610" y="2140" width="120" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
