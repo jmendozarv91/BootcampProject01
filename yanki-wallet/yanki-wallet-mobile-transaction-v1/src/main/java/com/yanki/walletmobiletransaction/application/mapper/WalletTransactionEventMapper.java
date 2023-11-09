@@ -15,4 +15,11 @@ public interface WalletTransactionEventMapper {
   @Mapping(source = "type", target = "status")
   TransactionEvent toEvent(Transaction model);
 
+
+  @Mapping(source = "id", target = "transactionId")
+  @Mapping(source = "debitCard.debitCardId", target = "debitCardNumber")
+  @Mapping(source = "sender.walletId", target = "sourceWalletId")
+  @Mapping(source = "debitCard.bankAccountId", target = "bankAccountId")
+  @Mapping(source = "type", target = "eventType")
+  TransactionEvent mapToDebitCardLinkedEvent(Transaction model);
 }

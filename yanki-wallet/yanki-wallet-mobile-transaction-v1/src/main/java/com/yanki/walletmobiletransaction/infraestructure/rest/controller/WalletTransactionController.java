@@ -79,7 +79,10 @@ public class WalletTransactionController implements TransactionsApi {
   @Override
   public Mono<ResponseEntity<DebitCardLinkResponse>> linkDebitCard(
       Mono<LinkDebitCardRequest> linkDebitCardRequest, ServerWebExchange exchange) {
-    return null;
+    return linkDebitCardRequest.flatMap(request ->
+            walletTransactionManagementService.linkDebitCard(request)
+                .map(ResponseEntity::ok))
+        .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
   }
 
   @Override

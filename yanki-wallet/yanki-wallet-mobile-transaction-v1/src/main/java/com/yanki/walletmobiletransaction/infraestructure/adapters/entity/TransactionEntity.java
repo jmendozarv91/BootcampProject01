@@ -27,6 +27,7 @@ public class TransactionEntity {
   private ParticipantEntity receiver;
   private MetadataEntity metadata;
   private AuditInfoEntity auditInfo;
+  private DebitCardEntity debitCard;
 
 
   @Getter
@@ -87,6 +88,18 @@ public class TransactionEntity {
     private String updatedBy;
     private Date updatedAt;
   }
+
+  @Getter
+  @Setter
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  public static class DebitCardEntity {
+    private String userId;
+    private String debitCardId;
+    private String bankAccountId;
+  }
+
 
 
 }

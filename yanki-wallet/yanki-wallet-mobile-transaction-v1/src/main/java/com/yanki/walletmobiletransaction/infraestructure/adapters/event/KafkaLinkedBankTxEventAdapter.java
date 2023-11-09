@@ -22,12 +22,13 @@ public class KafkaLinkedBankTxEventAdapter implements WalletLinkedBankTxEventPor
   private final KafkaTemplate<String, String> kafkaTemplate;
   private final ObjectMapper objectMapper;
 
-
   @Override
-  public Mono<Void> publishDebitCardLinkedEvent(String walletId, String debitCardNumber) {
+  public Mono<Void> publishDebitCardLinkedEvent(String walletId, String debitCardNumber,
+      String accountId) {
     TransactionEvent event = TransactionEvent.builder()
         .sourceWalletId(walletId)
         .debitCardNumber(debitCardNumber)
+        .bankAccountId(accountId)
         .eventType(EventType.DEBIT_CARD_LINKED)
         .build();
     return send(TRANSACTION_EVENTS_TOPIC, walletId, event);

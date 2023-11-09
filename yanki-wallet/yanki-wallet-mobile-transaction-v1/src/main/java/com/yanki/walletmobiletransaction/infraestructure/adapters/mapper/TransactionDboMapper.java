@@ -28,4 +28,11 @@ public interface TransactionDboMapper {
 
   @InheritConfiguration
   Transaction toDomain(TransactionEntity transactionEntity);
+
+
+
+  @Mapping(source = "sender.walletId", target = "sender.walletId")
+  @Mapping(source = "debitCard.bankAccountId", target = "debitCard.bankAccountId")
+  @Mapping(source = "debitCard.debitCardId", target = "debitCard.debitCardId")
+  TransactionEntity toDboLinkDebit(Transaction transaction);
 }

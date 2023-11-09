@@ -17,6 +17,7 @@ import com.yanki.walletmobiletransaction.domain.model.dto.TransactionStatusUpdat
 import com.yanki.walletmobiletransaction.domain.model.dto.WalletBalanceResponse;
 import com.yanki.walletmobiletransaction.domain.model.dto.WalletTransferRequest;
 import com.yanki.walletmobiletransaction.domain.model.enums.TransactionStatus;
+import com.yanki.walletmobiletransaction.domain.port.WalletLinkedBankTxEventPort;
 import com.yanki.walletmobiletransaction.domain.port.WalletTransactionEventPort;
 import com.yanki.walletmobiletransaction.domain.port.WalletTransactionPersistencePort;
 import com.yanki.walletmobiletransaction.infraestructure.adapters.exception.TransactionException;
@@ -37,22 +38,54 @@ public class WalletTransactionManagementService implements WalletTransactionServ
   private final WalletTransactionRequestMapper walletTransactionRequestMapper;
   private final WalletTransactionResponseMapper walletTransactionResponseMapper;
   private final WalletTransactionEventMapper walletTransactionEventMapper;
+  private final WalletLinkedBankTxEventPort walletLinkedBankTxEventPort;
 
 
   @Override
-  public Mono<TransactionResponse> transferWalletToWallet(WalletTransferRequest walletTransferRequest) {
+  public Mono<DebitCardLinkResponse> linkDebitCard(LinkDebitCardRequest linkDebitCardRequest) {
+    // Mapear la solicitud de vinculación de tarjeta de débito a una transacción de dominio
+    Transaction transaction = walletTransactionRequestMapper.linkedRequestToDomain(linkDebitCardRequest);
+
+    // Persistir la transacción en la base de datos y luego realizar otras operaciones
+    return walletTransactionPersistencePort.linkDebitCard(transaction)
+        .then(Mono.defer(() -> {
+          // Crear el evento de vinculación de tarjeta de débito
+          TransactionEvent debitCardLinkedEvent = walletTransactionEventMapper.mapToDebitCardLinkedEvent(transaction);
+
+          // Publicar el evento y esperar a que se complete la publicación
+          return Mono.fromRunnable(() -> {
+            walletLinkedBankTxEventPort.publishDebitCardLinkedEvent(
+                debitCardLinkedEvent.getSourceWalletId(),
+                debitCardLinkedEvent.getDebitCardNumber(),
+                debitCardLinkedEvent.getBankAccountId());
+          }).thenReturn(debitCardLinkedEvent);
+        }))
+        .map(debitCardLinkedEvent -> {
+          // Crear la respuesta con los datos necesarios
+          DebitCardLinkResponse debitCardLinkResponse = new DebitCardLinkResponse();
+          debitCardLinkResponse.setDebitCardNumber(debitCardLinkedEvent.getDebitCardNumber());
+          debitCardLinkResponse.setWalletId(debitCardLinkedEvent.getSourceWalletId());
+          debitCardLinkResponse.setMessage(WalletTransactonConstant.DEBIT_CARD_MESSAGE_LINKED_SUCESS);
+          return debitCardLinkResponse;
+        });
+  }
+
+  @Override
+  public Mono<TransactionResponse> transferWalletToWallet(
+      WalletTransferRequest walletTransferRequest) {
     // Paso 1: Mapea el WalletTransferRequest a una entidad de transacción (si es necesario)
-    Transaction transactionEntity = walletTransactionRequestMapper.walletTransferRequestToDomain(walletTransferRequest);
+    Transaction transactionEntity = walletTransactionRequestMapper.walletTransferRequestToDomain(
+        walletTransferRequest);
     // Paso 2: Persiste la transacción en la base de datos
     return walletTransactionPersistencePort.create(transactionEntity)
         .flatMap(savedTransaction -> {
           publishWalletToWalletTransferEvent(walletTransferRequest);
           // Paso 4: Mapea la entidad de transacción a una respuesta de transacción
-          TransactionResponse transactionResponse = walletTransactionResponseMapper.toTransactionResponse(savedTransaction);
+          TransactionResponse transactionResponse = walletTransactionResponseMapper.toTransactionResponse(
+              savedTransaction);
           return Mono.just(transactionResponse);
         });
   }
-
 
 
   @Override
@@ -112,10 +145,6 @@ public class WalletTransactionManagementService implements WalletTransactionServ
     return null;
   }
 
-  @Override
-  public Mono<DebitCardLinkResponse> linkDebitCard(LinkDebitCardRequest linkDebitCardRequest) {
-    return null;
-  }
 
   @Override
   public Flux<TransactionResponse> listWalletTransactions(String walletId) {

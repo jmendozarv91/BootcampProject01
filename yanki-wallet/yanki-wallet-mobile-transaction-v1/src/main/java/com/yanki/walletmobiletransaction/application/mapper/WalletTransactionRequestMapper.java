@@ -1,6 +1,7 @@
 package com.yanki.walletmobiletransaction.application.mapper;
 
 import com.yanki.walletmobiletransaction.domain.model.Transaction;
+import com.yanki.walletmobiletransaction.domain.model.dto.LinkDebitCardRequest;
 import com.yanki.walletmobiletransaction.domain.model.dto.TransactionRequest;
 import com.yanki.walletmobiletransaction.domain.model.dto.WalletTransferRequest;
 import org.mapstruct.Mapper;
@@ -24,4 +25,9 @@ public interface WalletTransactionRequestMapper {
   @Mapping(source = "receiver.walletId", target = "targetWalletId")
   @Mapping(source = "amount", target = "amount")
   TransactionRequest toCancelTransactionRequest(Transaction transaction);
+
+  @Mapping(source = "walletId", target = "sender.walletId")
+  @Mapping(source = "bankAccountId", target = "debitCard.bankAccountId")
+  @Mapping(source = "debitCardId", target = "debitCard.debitCardId")
+  Transaction linkedRequestToDomain(LinkDebitCardRequest linkDebitCardRequest);
 }

@@ -9,7 +9,7 @@ public interface WalletLinkedBankTxEventPort {
    * @param walletId        The identifier of the wallet to which the card is linked.
    * @param debitCardNumber The number of the debit card.
    */
-  Mono<Void> publishDebitCardLinkedEvent(String walletId, String debitCardNumber);
+  Mono<Void> publishDebitCardLinkedEvent(String walletId, String debitCardNumber , String accountId);
 
 
   /**

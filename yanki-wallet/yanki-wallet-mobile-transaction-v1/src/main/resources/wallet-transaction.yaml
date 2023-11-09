@@ -350,22 +350,16 @@ components:
         walletId:
           type: string
           description: Unique identifier for the wallet to link.
-        debitCardNumber:
+        debitCardId:
           type: string
-          description: The debit card number to link to the wallet.
-        cardHolderName:
+          description: The debit card id to link to the wallet.
+        bankAccountId:
           type: string
-          description: The name of the cardholder.
-        expiryDate:
-          type: string
-          format: date
-          description: The expiry date of the debit card.
+          description: The account id to link to the wallet.
       required:
         - walletId
-        - debitCardNumber
-        - cardHolderName
-        - expiryDate
-
+        - debitCardId
+        - bankAccountId
     DebitCardLinkResponse:
       type: object
       properties:

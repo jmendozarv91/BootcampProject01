@@ -26,6 +26,7 @@ public class Transaction {
   private Participant receiver;
   private Metadata metadata;
   private AuditInfo auditInfo;
+  private DebitCard debitCard;
 
 
   @Getter
@@ -86,6 +87,17 @@ public class Transaction {
     private String updatedBy;
     private Date updatedAt;
   }
+
+  @Getter
+  @Setter
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  public static class DebitCard {
+    private String debitCardId;
+    private String bankAccountId;
+  }
+
 
 
 }

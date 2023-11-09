@@ -21,4 +21,6 @@ public interface WalletTransactionPersistencePort {
   Flux<Transaction> getByIds(List<String> ids);
 
   Mono<Void> cancelTransaction(Transaction transaction);
+
+  Mono<Void> linkDebitCard(Transaction transaction);
 }
