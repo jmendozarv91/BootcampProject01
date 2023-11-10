@@ -17,7 +17,8 @@ public interface WalletTransactionEventMapper {
 
 
   @Mapping(source = "id", target = "transactionId")
-  @Mapping(source = "debitCard.debitCardId", target = "debitCardNumber")
+  @Mapping(source = "debitCard.debitCardNumber", target = "debitCardNumber")
+  @Mapping(source = "debitCard.debitCardId", target = "debitCardId")
   @Mapping(source = "sender.walletId", target = "sourceWalletId")
   @Mapping(source = "debitCard.bankAccountId", target = "bankAccountId")
   @Mapping(source = "type", target = "eventType")

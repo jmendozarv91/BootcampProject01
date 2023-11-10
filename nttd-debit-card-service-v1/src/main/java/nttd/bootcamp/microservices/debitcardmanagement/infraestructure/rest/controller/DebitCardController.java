@@ -5,6 +5,8 @@ import nttd.bootcamp.microservices.debitcardmanagement.application.services.Debi
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.CreateDebitCardRequest;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.CreateDebitCardResponse;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.DebitCardResponse;
+import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.LinkWalletRequest;
+import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.LinkWalletResponse;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.PerformTransactionRequest;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.PerformTransactionResponse;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.UpdateDebitCardRequest;
@@ -23,16 +25,30 @@ public class DebitCardController implements DebitCardsApi {
   private final DebitCardManagementService debitCardManagementService;
 
   @Override
+  public Mono<ResponseEntity<CreateDebitCardResponse>> createDebitCard(
+      Mono<CreateDebitCardRequest> createDebitCardRequest, ServerWebExchange exchange) {
+    return createDebitCardRequest
+        .flatMap(debitCardManagementService::createDebitCard)
+        .map(ResponseEntity::ok);
+
+  }
+
+
+  @Override
+  public Mono<ResponseEntity<LinkWalletResponse>> linkWalletToDebitCard(String cardNumber,
+      Mono<LinkWalletRequest> linkWalletRequest, ServerWebExchange exchange) {
+    return debitCardManagementService.linkWalletToDebitCard(cardNumber, linkWalletRequest)
+        .map(linkWalletResponse -> ResponseEntity.ok().body(linkWalletResponse));
+  }
+
+
+
+  @Override
   public Mono<ResponseEntity<Void>> associateDebitCardWithAccount(String cardNumber,
       String accountNumber, ServerWebExchange exchange) {
       return null;
   }
 
-  @Override
-  public Mono<ResponseEntity<CreateDebitCardResponse>> createDebitCard(
-      Mono<CreateDebitCardRequest> createDebitCardRequest, ServerWebExchange exchange) {
-    return null;
-  }
 
   @Override
   public Mono<ResponseEntity<PerformTransactionResponse>> performTransaction(String cardNumber,
@@ -51,4 +67,6 @@ public class DebitCardController implements DebitCardsApi {
       Mono<UpdateDebitCardRequest> updateDebitCardRequest, ServerWebExchange exchange) {
     return null;
   }
+
+
 }

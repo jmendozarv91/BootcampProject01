@@ -2,6 +2,8 @@ package nttd.bootcamp.microservices.debitcardmanagement.application.usecases;
 
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.CreateDebitCardRequest;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.CreateDebitCardResponse;
+import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.LinkWalletRequest;
+import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.LinkWalletResponse;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.PerformTransactionRequest;
 import nttd.bootcamp.microservices.debitcardmanagement.domain.model.dto.PerformTransactionResponse;
 import reactor.core.publisher.Flux;
@@ -17,5 +19,10 @@ public interface DebitCardService {
 
   Mono<PerformTransactionResponse> performTransaction(String cardNumber,
       PerformTransactionRequest transactionRequest);
+
+
+  Mono<LinkWalletResponse> linkWalletToDebitCard(String cardNumber,
+      Mono<LinkWalletRequest> linkWalletRequest);
+
 
 }

@@ -13,6 +13,8 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     bootstrap-servers: localhost:9092
 
+
+
 #logging:
 #  level:
 #    org:

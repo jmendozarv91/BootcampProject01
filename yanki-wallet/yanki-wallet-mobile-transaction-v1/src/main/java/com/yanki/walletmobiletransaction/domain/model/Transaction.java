@@ -96,6 +96,7 @@ public class Transaction {
   public static class DebitCard {
     private String debitCardId;
     private String bankAccountId;
+    private String debitCardNumber;
   }
 
 

@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Document(collection = "debitCards")
+@Document(collection = "debit_cards")
 public class DebitCardEntity {
 
   @Id
@@ -26,5 +26,6 @@ public class DebitCardEntity {
   private Double balance;
   private String primaryAccountId;
   private List<String> associatedAccountIds;
+  private String walletId;
 
 }

@@ -9,4 +9,4 @@ spring:
 bank-nttdata:
   client:
     account:
-      baseUrl: http://localhost:8086/api/v1/account/account-management/{accountId}
+      baseUrl: http://localhost:8086/api/v1/account/account-management/

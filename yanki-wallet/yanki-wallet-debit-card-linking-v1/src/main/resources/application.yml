@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: local
+  webflux:
+    base-path: /api/v1
+#      host:
+#      port:
+server:
+  port: 8050
+#      password:

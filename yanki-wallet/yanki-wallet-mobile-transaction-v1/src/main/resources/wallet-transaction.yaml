@@ -356,9 +356,13 @@ components:
         bankAccountId:
           type: string
           description: The account id to link to the wallet.
+        debitCardNumber:
+          type: string
+          description: The debit card number
       required:
         - walletId
         - debitCardId
+        - debitCardNumber
         - bankAccountId
     DebitCardLinkResponse:
       type: object

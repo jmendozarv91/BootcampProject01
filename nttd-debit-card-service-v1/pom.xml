@@ -159,7 +159,7 @@
                 <skipDefaultInterface>true</skipDefaultInterface>
               </configOptions>
               <modelsToGenerate>
-                PerformTransactionRequest,CreateDebitCardRequest,UpdateDebitCardRequest
+                PerformTransactionRequest,CreateDebitCardRequest,UpdateDebitCardRequest,LinkWalletRequest
               </modelsToGenerate>
             </configuration>
           </execution>
@@ -183,7 +183,7 @@
                 <interfaceOnly>true</interfaceOnly>
                 <skipDefaultInterface>true</skipDefaultInterface>
               </configOptions>
-              <modelsToGenerate>PerformTransactionResponse,CreateDebitCardResponse,DebitCardResponse
+              <modelsToGenerate>PerformTransactionResponse,CreateDebitCardResponse,DebitCardResponse,LinkWalletResponse
               </modelsToGenerate> <!-- Names of Response DTOs -->
             </configuration>
           </execution>

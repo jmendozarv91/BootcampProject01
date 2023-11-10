@@ -21,6 +21,7 @@ public class TransactionEvent implements Serializable {
   private String status;
   private String sourceWalletId;
   private String targetWalletId;
+  private String debitCardId;
   private String targetPhoneNumber;
   private double amount;
   private String debitCardNumber;

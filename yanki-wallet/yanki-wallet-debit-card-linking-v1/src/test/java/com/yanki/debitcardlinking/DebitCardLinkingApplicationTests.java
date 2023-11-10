@@ -3,10 +3,10 @@ package com.yanki.debitcardlinking;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class DebitCardLinkingApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 

@@ -29,5 +29,6 @@ public interface WalletTransactionRequestMapper {
   @Mapping(source = "walletId", target = "sender.walletId")
   @Mapping(source = "bankAccountId", target = "debitCard.bankAccountId")
   @Mapping(source = "debitCardId", target = "debitCard.debitCardId")
+  @Mapping(source = "debitCardNumber", target = "debitCard.debitCardNumber")
   Transaction linkedRequestToDomain(LinkDebitCardRequest linkDebitCardRequest);
 }
