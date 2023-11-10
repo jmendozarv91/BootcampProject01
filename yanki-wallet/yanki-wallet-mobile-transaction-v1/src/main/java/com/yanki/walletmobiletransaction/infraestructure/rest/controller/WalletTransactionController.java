@@ -25,6 +25,19 @@ public class WalletTransactionController implements TransactionsApi {
   private final WalletTransactionManagementService walletTransactionManagementService;
 
   @Override
+  public Mono<ResponseEntity<WalletBalanceResponse>> loadWalletFromDebitCard(String walletId,
+      Mono<LoadWalletRequest> loadWalletRequest, ServerWebExchange exchange) {
+    return null;
+  }
+
+
+  @Override
+  public Mono<ResponseEntity<WalletBalanceResponse>> creditWalletToBankAccount(String walletId,
+      Mono<CreditWalletRequest> creditWalletRequest, ServerWebExchange exchange) {
+    return null;
+  }
+
+  @Override
   public Mono<ResponseEntity<TransactionResponse>> transferWalletToWallet(
       Mono<WalletTransferRequest> walletTransferRequest, ServerWebExchange exchange) {
     return walletTransferRequest.flatMap(request ->
@@ -50,11 +63,7 @@ public class WalletTransactionController implements TransactionsApi {
         .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
   }
 
-  @Override
-  public Mono<ResponseEntity<WalletBalanceResponse>> creditWalletToBankAccount(String walletId,
-      Mono<CreditWalletRequest> creditWalletRequest, ServerWebExchange exchange) {
-    return null;
-  }
+
 
   @Override
   public Mono<ResponseEntity<TransactionResponse>> getTransactionById(String transactionId,
@@ -91,11 +100,7 @@ public class WalletTransactionController implements TransactionsApi {
     return null;
   }
 
-  @Override
-  public Mono<ResponseEntity<WalletBalanceResponse>> loadWalletFromDebitCard(String walletId,
-      Mono<LoadWalletRequest> loadWalletRequest, ServerWebExchange exchange) {
-    return null;
-  }
+
 
 
 

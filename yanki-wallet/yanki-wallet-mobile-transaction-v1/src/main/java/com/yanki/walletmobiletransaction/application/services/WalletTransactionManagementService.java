@@ -40,6 +40,16 @@ public class WalletTransactionManagementService implements WalletTransactionServ
   private final WalletTransactionEventMapper walletTransactionEventMapper;
   private final WalletLinkedBankTxEventPort walletLinkedBankTxEventPort;
 
+  @Override
+  public Mono<WalletBalanceResponse> creditWalletToBankAccount(String walletId,
+      CreditWalletRequest creditWalletRequest) {
+    return null;
+  }
+
+  @Override
+  public Mono<WalletBalanceResponse> loadWalletFromDebitCard(String walletId) {
+    return null;
+  }
 
   @Override
   public Mono<DebitCardLinkResponse> linkDebitCard(LinkDebitCardRequest linkDebitCardRequest) {
@@ -128,11 +138,7 @@ public class WalletTransactionManagementService implements WalletTransactionServ
   }
 
 
-  @Override
-  public Mono<WalletBalanceResponse> creditWalletToBankAccount(String walletId,
-      CreditWalletRequest creditWalletRequest) {
-    return null;
-  }
+
 
 
   @Override
@@ -151,10 +157,6 @@ public class WalletTransactionManagementService implements WalletTransactionServ
     return null;
   }
 
-  @Override
-  public Mono<WalletBalanceResponse> loadWalletFromDebitCard(String walletId) {
-    return null;
-  }
 
 
   @Override
