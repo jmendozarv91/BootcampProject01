@@ -201,7 +201,7 @@ paths:
 
   /transactions/wallet-to-bank-account/{walletId}:
     post:
-      summary: Credit wallet balance to bank account
+      summary:
       operationId: creditWalletToBankAccount
       tags:
         - Wallet Management
